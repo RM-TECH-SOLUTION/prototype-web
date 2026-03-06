@@ -30,7 +30,6 @@ const apiClient = {
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "Access-Control-Allow-Origin": "*",
   },
 
   async make(url, method = "GET", params = {}) {
