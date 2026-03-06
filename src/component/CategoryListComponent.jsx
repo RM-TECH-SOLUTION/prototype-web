@@ -1,201 +1,197 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import orderingStore from '../store/orderingStore';
-import './CategoryListComponent.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import orderingStore from "../store/orderingStore";
+import "./CategoryListComponent.css";
 
 const CategoryListComponent = () => {
-  const { catalogModels, getCatalogModels, loading, catalogItems, getCatalogItems, selectedCatalogId } = orderingStore();
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const {
+    catalogModels,
+    catalogItems,
+    cartItems,
+    loading,
+    selectedCatalogId,
+    getCatalogModels,
+    getCatalogItems,
+    addToCart,
+    updateQty,
+    deleteCartItem,
+    getCart
+  } = orderingStore();
+
+  const [cartMap, setCartMap] = useState({});
+
+  /* ================= INITIAL LOAD ================= */
 
   useEffect(() => {
     getCatalogModels();
+    getCart();
   }, []);
 
-  const handleCategorySelect = (categoryId) => {
-    setSelectedCategory(categoryId);
-    getCatalogItems(categoryId);
+  /* ================= MAP CART ================= */
+
+  useEffect(() => {
+    const map = {};
+    cartItems.forEach((item) => {
+      map[item.item_id] = {
+        quantity: Number(item.quantity),
+        cart_id: item.cart_id
+      };
+    });
+    setCartMap(map);
+  }, [cartItems]);
+
+  /* ================= HELPERS ================= */
+
+  const getImage = (item) => {
+    if (Array.isArray(item?.images) && item.images.length > 0)
+      return item.images[0];
+
+    if (Array.isArray(item?.image) && item.image.length > 0)
+      return item.image[0];
+
+    if (typeof item?.image === "string")
+      return item.image;
+
+    return "https://via.placeholder.com/150";
   };
 
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#1C1C1C',
-      color: '#fff',
-      padding: '20px',
-    },
-    header: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: '20px',
-    },
-    title: {
-      fontSize: '24px',
-      fontWeight: 'bold',
-    },
-    navLink: {
-      color: '#E50914',
-      textDecoration: 'none',
-    },
-    categoryGrid: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '15px',
-    },
-    categoryCard: {
-      backgroundColor: '#2A2A2A',
-      borderRadius: '15px',
-      padding: '20px',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '15px',
-    },
-    categoryImage: {
-      width: '80px',
-      height: '80px',
-      borderRadius: '10px',
-      objectFit: 'cover',
-    },
-    categoryInfo: {
-      flex: 1,
-    },
-    categoryName: {
-      fontSize: '18px',
-      fontWeight: 'bold',
-      marginBottom: '5px',
-    },
-    categoryDesc: {
-      fontSize: '14px',
-      color: '#aaa',
-    },
-    loadingText: {
-      textAlign: 'center',
-      color: '#aaa',
-      marginTop: '20px',
-    },
-    itemsGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '15px',
-      marginTop: '20px',
-    },
-    itemCard: {
-      backgroundColor: '#2A2A2A',
-      borderRadius: '15px',
-      padding: '15px',
-    },
-    itemImage: {
-      width: '100%',
-      height: '120px',
-      borderRadius: '10px',
-      objectFit: 'cover',
-      marginBottom: '10px',
-    },
-    itemName: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      marginBottom: '5px',
-    },
-    itemPrice: {
-      fontSize: '16px',
-      color: '#E50914',
-      fontWeight: 'bold',
-    },
-    itemComparePrice: {
-      fontSize: '12px',
-      color: '#666',
-      textDecoration: 'line-through',
-      marginLeft: '8px',
-    },
-    addButton: {
-      backgroundColor: '#E50914',
-      color: '#fff',
-      border: 'none',
-      padding: '10px',
-      borderRadius: '10px',
-      marginTop: '10px',
-      width: '100%',
-      cursor: 'pointer',
-      fontWeight: 'bold',
-    },
-    backButton: {
-      backgroundColor: '#333',
-      color: '#fff',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '10px',
-      marginBottom: '20px',
-      cursor: 'pointer',
-    },
+  const getQty = (id) => cartMap[id]?.quantity || 0;
+
+  /* ================= HANDLERS ================= */
+
+  const handleCategorySelect = (catalogId) => {
+    getCatalogItems(catalogId);
   };
+
+  const handleAdd = async (item) => {
+    await addToCart({
+      item_id: item.id,
+      item_name: item.name,
+      description: item.description,
+      price: item.variant?.price || item.price,
+      compare_price: item.variant?.compare_price || item.compare_price,
+      variant_id: item.variant?.id,
+      variant_name: item.variant?.variant_name,
+      quantity: 1
+    });
+  };
+
+  const handleIncrease = async (item) => {
+    if (!cartMap[item.id]) return;
+    await updateQty(cartMap[item.id].cart_id, "inc");
+  };
+
+  const handleDecrease = async (item) => {
+    if (!cartMap[item.id]) return;
+
+    if (cartMap[item.id].quantity === 1) {
+      await deleteCartItem(cartMap[item.id].cart_id);
+    } else {
+      await updateQty(cartMap[item.id].cart_id, "dec");
+    }
+  };
+
+  const totalItems = cartItems.reduce(
+    (sum, item) => sum + Number(item.quantity || 0),
+    0
+  );
+
+  const totalPrice = cartItems
+    .reduce((sum, item) => sum + Number(item.total || 0), 0)
+    .toFixed(2);
+
+  /* ================= UI ================= */
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <h1 style={styles.title}>
-          {selectedCatalogId ? 'Items' : 'Categories'}
-        </h1>
-        <Link to="/" style={styles.navLink}>Home</Link>
+    <div className="catalog-page">
+
+      <header className="header">
+        <h1>{selectedCatalogId ? "Items" : "Catalog"}</h1>
+        <Link to="/">Home</Link>
       </header>
 
-      {selectedCatalogId && (
-        <button style={styles.backButton} onClick={() => setSelectedCategory(null)}>
-          ← Back to Categories
-        </button>
-      )}
+      {loading && <p className="loading">Loading...</p>}
 
-      {loading && <p style={styles.loadingText}>Loading...</p>}
+      {!selectedCatalogId && (
+        <div className="category-grid">
 
-      {!selectedCatalogId ? (
-        <div style={styles.categoryGrid}>
-          {catalogModels.map((category) => (
-            <div 
-              key={category.id} 
-              style={styles.categoryCard}
-              onClick={() => handleCategorySelect(category.id)}
+          {catalogModels.map((cat) => (
+            <div
+              key={cat.id}
+              className="category-card"
+              onClick={() => handleCategorySelect(cat.id)}
             >
-              <img 
-                src={category.image || 'https://via.placeholder.com/80'} 
-                alt={category.name}
-                style={styles.categoryImage}
-              />
-              <div style={styles.categoryInfo}>
-                <h3 style={styles.categoryName}>{category.name}</h3>
-                <p style={styles.categoryDesc}>{category.description || 'View items'}</p>
-              </div>
-            </div>
-          ))}
-          {catalogModels.length === 0 && !loading && (
-            <p style={styles.loadingText}>No categories available</p>
-          )}
-        </div>
-      ) : (
-        <div style={styles.itemsGrid}>
-          {catalogItems.map((item) => (
-            <div key={item.id} style={styles.itemCard}>
-              <img 
-                src={item.image || 'https://via.placeholder.com/150'} 
-                alt={item.name}
-                style={styles.itemImage}
-              />
-              <h4 style={styles.itemName}>{item.name}</h4>
+              <img src={getImage(cat)} alt={cat.name} />
+
               <div>
-                <span style={styles.itemPrice}>₹{item.price}</span>
-                {item.compare_price && (
-                  <span style={styles.itemComparePrice}>₹{item.compare_price}</span>
-                )}
+                <h3>{cat.name}</h3>
+                <p>{cat.description || "View items"}</p>
               </div>
-              <button style={styles.addButton}>Add to Cart</button>
+
             </div>
           ))}
-          {catalogItems.length === 0 && !loading && (
-            <p style={styles.loadingText}>No items available</p>
-          )}
+
         </div>
       )}
+
+      {selectedCatalogId && (
+        <div className="items-grid">
+
+          {catalogItems.map((item) => {
+
+            const qty = getQty(item.id);
+
+            return (
+              <div key={item.id} className="item-card">
+
+                <img src={getImage(item)} alt={item.name} />
+
+                <h4>{item.name}</h4>
+
+                <p className="price">₹{item.price}</p>
+
+                {qty === 0 ? (
+                  <button
+                    className="add-btn"
+                    onClick={() => handleAdd(item)}
+                  >
+                    ADD
+                  </button>
+                ) : (
+                  <div className="qty-box">
+
+                    <button onClick={() => handleDecrease(item)}>
+                      -
+                    </button>
+
+                    <span>{qty}</span>
+
+                    <button onClick={() => handleIncrease(item)}>
+                      +
+                    </button>
+
+                  </div>
+                )}
+
+              </div>
+            );
+          })}
+
+        </div>
+      )}
+
+      {totalItems > 0 && (
+        <div className="cart-bar">
+
+          <Link to="/checkout">
+            View Cart ({totalItems}) - ₹{totalPrice}
+          </Link>
+
+        </div>
+      )}
+
     </div>
   );
 };
 
 export default CategoryListComponent;
-

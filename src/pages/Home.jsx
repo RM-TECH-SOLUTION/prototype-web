@@ -38,18 +38,36 @@ const Home = () => {
 
   const normalizeCmsFields = (cms) => {
     if (!cms) return [];
+    
+    // Helper to extract values from potential field objects
+    const extractValue = (value) => {
+      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        return value;
+      }
+      if (value && typeof value === 'object' && value.fieldValue !== undefined) {
+        return extractValue(value.fieldValue); // Recursive
+      }
+      if (value && typeof value === 'object') {
+        return null; // Prevent objects from being rendered
+      }
+      return value;
+    };
+    
     if (Array.isArray(cms)) {
-      return cms.map((item) =>
-        Object.values(item).reduce((acc, field) => {
-          acc[field.fieldKey] = field.fieldValue;
-          return acc;
-        }, {})
-      );
+      return cms.map((item) => {
+        const normalized = {};
+        Object.entries(item).forEach(([key, field]) => {
+          normalized[key] = extractValue(field);
+        });
+        return normalized;
+      });
     }
-    return Object.values(cms).reduce((acc, field) => {
-      acc[field.fieldKey] = field.fieldValue;
-      return acc;
-    }, {});
+    
+    const normalized = {};
+    Object.entries(cms).forEach(([key, field]) => {
+      normalized[key] = extractValue(field);
+    });
+    return normalized;
   };
 
   const styles = {

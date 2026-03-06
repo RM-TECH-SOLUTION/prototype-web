@@ -6,6 +6,27 @@ import Account from "../pages/Account";
 import CategoryContainer from "./CategoryContainer";
 import useCmsStore from "../store/useCmsStore";
 
+// Helper to extract values from potential field objects
+const extractValue = (value) => {
+  // If it's a string or number, return as-is
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+    return value;
+  }
+  
+  // If it's an object with fieldValue property, extract it
+  if (value && typeof value === 'object' && value.fieldValue !== undefined) {
+    return extractValue(value.fieldValue); // Recursive in case fieldValue is also nested
+  }
+  
+  // If it's an object (but not a field object), return null to prevent React errors
+  if (value && typeof value === 'object') {
+    return null;
+  }
+  
+  // Return null, undefined, or any other primitive
+  return value;
+};
+
 // Helper to parse the custom CMS field format like "@{fieldName=... fieldKey=... fieldValue=...}"
 const parseCmsValue = (value) => {
   if (!value || typeof value !== 'string') return value;
@@ -30,7 +51,8 @@ const normalizeCmsFields = (cms) => {
     return cms.map((item) => {
       const normalized = {};
       Object.entries(item).forEach(([key, value]) => {
-        normalized[key] = parseCmsValue(value);
+        const extracted = extractValue(value);
+        normalized[key] = parseCmsValue(extracted);
       });
       return normalized;
     });
@@ -39,12 +61,9 @@ const normalizeCmsFields = (cms) => {
   // If it's an object with nested structure
   if (typeof cms === 'object') {
     const normalized = {};
-    Object.entries(cms).forEach(([key, field]) => {
-      if (field && typeof field === 'object' && field.fieldValue !== undefined) {
-        normalized[key] = parseCmsValue(field.fieldValue);
-      } else {
-        normalized[key] = parseCmsValue(field);
-      }
+    Object.entries(cms).forEach(([key, value]) => {
+      const extracted = extractValue(value);
+      normalized[key] = parseCmsValue(extracted);
     });
     return normalized;
   }
