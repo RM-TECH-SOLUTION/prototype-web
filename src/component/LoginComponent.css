@@ -1,0 +1,135 @@
+/* LoginComponent Styles */
+.login-container {
+  min-height: 100vh;
+  background-color: #1C1C1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.login-logo {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: 0 auto 15px;
+  object-fit: contain;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-input-container {
+  display: flex;
+  align-items: center;
+  border-width: 1px;
+  border-color: #E50914;
+  border-radius: 12px;
+  paddingHorizontal: 15px;
+  paddingVertical: 12px;
+  margin-bottom: 18px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.login-input-icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.login-input {
+  flex: 1;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.login-input::placeholder {
+  color: #aaa;
+}
+
+.login-button {
+  background-color: #E50914;
+  paddingVertical: 15px;
+  borderRadius: 30px;
+  alignItems: center;
+  marginTop: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #ff1a1a;
+}
+
+.login-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.login-button-text {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.login-footer-text {
+  color: #ccc;
+}
+
+.login-register-text {
+  color: #E50914;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-register-text:hover {
+  text-decoration: underline;
+}
+
+.login-skip-text {
+  color: #E50914;
+  textAlign: center;
+  marginTop: 20px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+}
+
+.login-error-text {
+  color: #ff4444;
+  textAlign: center;
+  marginBottom: 15px;
+}
+

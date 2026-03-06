@@ -1,0 +1,119 @@
+/* RegistrationScreen Styles */
+.registration-container {
+  min-height: 100vh;
+  background-color: #1C1C1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.registration-card {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.registration-logo {
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: 0 auto 15px;
+  object-fit: contain;
+}
+
+.registration-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.registration-subtitle {
+  font-size: 14px;
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.registration-input-container {
+  display: flex;
+  align-items: center;
+  border-width: 1px;
+  border-color: #E50914;
+  border-radius: 12px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.registration-input-icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.registration-input {
+  flex: 1;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.registration-input::placeholder {
+  color: #aaa;
+}
+
+.registration-button {
+  background-color: #E50914;
+  padding: 15px;
+  border-radius: 30px;
+  align-items: center;
+  margin-top: 15px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.registration-button:hover {
+  background-color: #ff1a1a;
+}
+
+.registration-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.registration-button-text {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.registration-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.registration-footer-text {
+  color: #ccc;
+}
+
+.registration-link-text {
+  color: #E50914;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.registration-link-text:hover {
+  text-decoration: underline;
+}
+

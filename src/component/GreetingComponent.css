@@ -1,0 +1,18 @@
+.greeting-container {
+  margin-bottom: 10px;
+  padding: 16px;
+}
+
+.greeting-text {
+  font-size: 16px;
+  color: #E50914;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sub-text {
+  font-size: 13px;
+  color: #ddd;
+  margin-top: 2px;
+}
+
