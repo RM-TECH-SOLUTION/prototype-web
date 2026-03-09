@@ -7,6 +7,8 @@
   padding: 16px;
   box-sizing: border-box;
   padding-bottom: 80px;
+  max-width: 650px;
+  margin: auto;
 }
 
 .header {
@@ -210,7 +212,7 @@
 /* Cart Bar */
 .cart-bar {
   position: fixed;
-  bottom: 16px;
+  bottom: 100px;
   left: 16px;
   right: 16px;
   background: #000;
@@ -219,6 +221,8 @@
   border-radius: 12px;
   text-align: center;
   z-index: 100;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .cart-bar a {
