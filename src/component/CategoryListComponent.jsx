@@ -19,6 +19,7 @@ const CategoryListComponent = () => {
   } = orderingStore();
 
   const [cartMap, setCartMap] = useState({});
+  const [isUpdating, setIsUpdating] = useState(false);
 
   /* ================= INITIAL LOAD ================= */
 
@@ -56,6 +57,7 @@ const CategoryListComponent = () => {
   };
 
   const getQty = (id) => cartMap[id]?.quantity || 0;
+  const getCartId = (id) => cartMap[id]?.cart_id;
 
   /* ================= HANDLERS ================= */
 
@@ -64,6 +66,7 @@ const CategoryListComponent = () => {
   };
 
   const handleAdd = async (item) => {
+    setIsUpdating(true);
     await addToCart({
       item_id: item.id,
       item_name: item.name,
@@ -74,21 +77,34 @@ const CategoryListComponent = () => {
       variant_name: item.variant?.variant_name,
       quantity: 1
     });
+    await getCart();
+    setIsUpdating(false);
   };
 
   const handleIncrease = async (item) => {
-    if (!cartMap[item.id]) return;
-    await updateQty(cartMap[item.id].cart_id, "inc");
+    const cartId = getCartId(item.id);
+    if (!cartId) return;
+    
+    setIsUpdating(true);
+    await updateQty(cartId, "inc");
+    await getCart();
+    setIsUpdating(false);
   };
 
   const handleDecrease = async (item) => {
-    if (!cartMap[item.id]) return;
+    const cartId = getCartId(item.id);
+    const qty = getQty(item.id);
+    
+    if (!cartId) return;
 
-    if (cartMap[item.id].quantity === 1) {
-      await deleteCartItem(cartMap[item.id].cart_id);
+    setIsUpdating(true);
+    if (qty === 1) {
+      await deleteCartItem(cartId);
     } else {
-      await updateQty(cartMap[item.id].cart_id, "dec");
+      await updateQty(cartId, "dec");
     }
+    await getCart();
+    setIsUpdating(false);
   };
 
   const totalItems = cartItems.reduce(
@@ -145,8 +161,10 @@ const CategoryListComponent = () => {
               <div key={item.id} className="item-card">
 
                 <Link to={`/product/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <img src={getImage(item)} alt={item.name} />
-                  <h4>{item.name}</h4>
+                  <div className="item-image-container">
+                    <img src={getImage(item)} alt={item.name} className="item-image" />
+                  </div>
+                  <h4 className="item-name">{item.name}</h4>
                   <p className="price">₹{item.price}</p>
                 </Link>
 
@@ -154,19 +172,28 @@ const CategoryListComponent = () => {
                   <button
                     className="add-btn"
                     onClick={() => handleAdd(item)}
+                    disabled={isUpdating}
                   >
                     ADD
                   </button>
                 ) : (
                   <div className="qty-box">
 
-                    <button onClick={() => handleDecrease(item)}>
-                      -
+                    <button 
+                      onClick={() => handleDecrease(item)}
+                      disabled={isUpdating}
+                      className="qty-btn"
+                    >
+                      −
                     </button>
 
-                    <span>{qty}</span>
+                    <span className="qty-value">{qty}</span>
 
-                    <button onClick={() => handleIncrease(item)}>
+                    <button 
+                      onClick={() => handleIncrease(item)}
+                      disabled={isUpdating}
+                      className="qty-btn"
+                    >
                       +
                     </button>
 
@@ -195,3 +222,4 @@ const CategoryListComponent = () => {
 };
 
 export default CategoryListComponent;
+
