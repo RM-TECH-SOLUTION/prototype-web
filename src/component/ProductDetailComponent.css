@@ -173,6 +173,7 @@
 .product-variant-btn:hover {
   border-color: #E50914;
   color: #E50914;
+  background-color: rgba(229, 9, 20, 0.1);
 }
 
 .product-variant-btn.active {

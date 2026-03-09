@@ -16,6 +16,7 @@ const ProductDetailComponent = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [showFullSpec, setShowFullSpec] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [activeVariantIndex, setActiveVariantIndex] = useState(0);
 
   // Initialize variant and quantity when product loads
   useEffect(() => {
@@ -240,15 +241,18 @@ const parsedSpecs = normalizeSpecs(product.specifications);
             <div className="product-variant-section">
               <label className="product-variant-label">Select Variant:</label>
               <div className="product-variant-options">
-                {product.variants.map((variant) => (
-                  <button
-                    key={variant.variant_id}
-                    className={`product-variant-btn ${selectedVariant?.variant_id === variant.variant_id ? 'active' : ''}`}
-                    onClick={() => setSelectedVariant(variant)}
-                  >
-                    {variant.variant_name}
-                  </button>
-                ))}
+               {product.variants.map((variant, index) => (
+  <button
+    key={index}
+    className={`product-variant-btn ${activeVariantIndex === index ? "active" : ""}`}
+    onClick={() => {
+      setSelectedVariant(variant);
+      setActiveVariantIndex(index);
+    }}
+  >
+    {variant.variant_name}
+  </button>
+))}
               </div>
             </div>
           )}
