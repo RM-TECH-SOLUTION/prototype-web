@@ -108,55 +108,55 @@ const CheckoutComponent = () => {
       }
 
       // Open Razorpay checkout
-      const options = {
-        key: 'rzp_test_RfB9T8TS7ruuZP', // Your test key
-        amount: Math.round(total * 100),
-        currency: 'INR',
-        name: merchantData?.name || 'RM Tech Solution',
-        description: 'Order Payment',
-        order_id: orderData.id,
-        prefill: {
-          contact: user.phone || '',
-          email: user.email || '',
-          name: user.name || 'Customer',
-        },
-        handler: async (response) => {
-          // Payment successful
-          if (response.razorpay_payment_id) {
-            try {
-              // Verify payment and create order in backend
-              await fetch('https://api.rmtechsolution.com/create_order.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  order_id: orderId,
-                  razorpay_order_id: orderData.id,
-                  razorpay_payment_id: response.razorpay_payment_id,
-                  razorpay_signature: response.razorpay_signature,
-                  merchant_id: 9,
-                  user_id: user.id,
-                  items: cartItems,
-                  address: profile?.address || '',
-                  amount: total,
-                  orderType: 'online',
-                  status: 'success',
-                }),
-              });
+    const options = {
+  key: merchantData?.keyId,
+  amount: orderData.amount,
+  currency: "INR",
+  name: merchantData?.name || "RM Tech Solution",
+  description: "Order Payment",
+  order_id: orderData.id,
 
-              alert('Payment successful! Order created.');
-              // Clear cart and navigate
-              await getCart();
-              navigate('/order-history');
-            } catch (err) {
-              console.error('Order creation error:', err);
-              alert('Payment received but order creation failed. Please contact support.');
-            }
-          }
+  handler: async function (response) {
+
+    if (response.razorpay_payment_id) {
+
+      await fetch("https://api.rmtechsolution.com/create_order.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        theme: { color: '#E50914' },
-      };
+        body: JSON.stringify({
+          order_id: orderData.id,
+          payment_id: response.razorpay_payment_id,
+          merchant_id: merchantData?.merchantId,
+          user_id: user?.id,
+          items: cartItems,
+          amount: total,
+          orderType: "online",
+          status: "success",
+        }),
+      });
+
+      alert("Payment successful");
+
+      await getCart();
+      navigate("/order-history");
+    }
+  },
+
+  prefill: {
+    name: user?.name,
+    email: user?.email,
+    contact: user?.phone,
+  },
+
+  theme: {
+    color: "#E50914",
+  },
+};
 
       const rzp = new window.Razorpay(options);
+      console.log("Opening Razorpay with options:", rzp);
       rzp.open();
     } catch (error) {
       console.error('Payment error:', error);
