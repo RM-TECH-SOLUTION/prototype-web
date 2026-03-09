@@ -6,6 +6,7 @@ const useAuthStore = create((set) => ({
   loading: false,
   success: false,
   errorMessage: null,
+  profile: null,
 
   loginUser: async (identity, password) => {
     set({ errorMessage: null, success: false });
@@ -41,7 +42,7 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  registerUser: async (name, email, phone, password) => {
+  registerUser: async (name, email, phone, password, referralCode = null, gender = null) => {
     set({ errorMessage: null, success: false });
 
     if (!name || !email || !phone || !password) {
@@ -52,7 +53,14 @@ const useAuthStore = create((set) => ({
     set({ loading: true });
 
     try {
-      const payload = { name, email, phone, password };
+      const payload = {
+        name,
+        email,
+        phone,
+        password,
+        referral_code: referralCode,
+        gender
+      };
       const result = await apiClient.post(apiClient.Urls.register, payload);
 
       if (result?.success) {
@@ -75,10 +83,53 @@ const useAuthStore = create((set) => ({
     }
   },
 
+  saveUserAddress: async (address) => {
+    set({ loading: true });
+    try {
+      const result = await apiClient.post(
+        apiClient.Urls.saveUserAddress,
+        { address: address }
+      );
+
+      if (result?.success) {
+        alert("Address saved successfully");
+      } else {
+        alert(result?.message || "Failed to save address");
+      }
+
+      return result;
+    } catch (error) {
+      console.error("SAVE ADDRESS ERROR:", error.message);
+      alert("Network error: " + error.message);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  getProfile: async () => {
+    const session = useSessionStore.getState();
+    set({ loading: true });
+
+    try {
+      const result = await apiClient.post(apiClient.Urls.getProfile);
+      console.log(result, "profile result");
+
+      if (result?.success) {
+        set({ profile: result?.user });
+        session.setProfile(result?.user);
+      }
+      return result;
+    } catch (error) {
+      console.error("GET PROFILE ERROR:", error.message);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
   logoutUser: () => {
     const session = useSessionStore.getState();
     session.clearSession();
-    set({ success: false, errorMessage: null });
+    set({ success: false, errorMessage: null, profile: null });
   },
 }));
 

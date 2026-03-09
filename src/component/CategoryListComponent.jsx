@@ -144,11 +144,11 @@ const CategoryListComponent = () => {
             return (
               <div key={item.id} className="item-card">
 
-                <img src={getImage(item)} alt={item.name} />
-
-                <h4>{item.name}</h4>
-
-                <p className="price">₹{item.price}</p>
+                <Link to={`/product/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <img src={getImage(item)} alt={item.name} />
+                  <h4>{item.name}</h4>
+                  <p className="price">₹{item.price}</p>
+                </Link>
 
                 {qty === 0 ? (
                   <button

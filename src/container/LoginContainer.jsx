@@ -30,7 +30,7 @@ const LoginContainer = () => {
   let cmsConfig = {};
   if (cmsData && Array.isArray(cmsData)) {
     cmsData.forEach((item) => {
-      if (item.modelSlug === 'loginUiConfiguration') {
+      if (item.modelSlug === 'loginConfiguration') {
         const cms = item.cms || {};
         if (Array.isArray(cms)) {
           // If cms is an array, combine all items

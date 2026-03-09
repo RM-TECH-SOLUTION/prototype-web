@@ -1,7 +1,8 @@
 // API Client - Same as React Native version
+import { config } from '../config';
 
-const BASE_URL = "https://api.rmtechsolution.com/";
-const merchantId = 9;
+const BASE_URL = config.baseUrl.endsWith("/") ? config.baseUrl : config.baseUrl + "/";
+const merchantId = Number(config.merchantId || 0);
 
 const URLS = {
   register: BASE_URL + "register.php",
@@ -21,7 +22,10 @@ const URLS = {
   razorpay: BASE_URL + "razorpay.php",
   getMerchant: BASE_URL + "getMerchant.php",
   saveUserAddress: BASE_URL + "save_user_address.php",
-  getProfile: BASE_URL + "get_profile.php"
+  getProfile: BASE_URL + "get_profile.php",
+  getLoyaltySettings: BASE_URL + "get_loyalty_settings.php",
+  apply_coupon: BASE_URL + "apply_coupon.php",
+  order_history: BASE_URL + "order_history.php"
 };
 
 const apiClient = {

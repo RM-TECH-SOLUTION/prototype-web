@@ -15,6 +15,9 @@ const orderingStore = create((set, get) => ({
   // Cart
   cartItems: [],
   merchantData: null,
+  loyaltySettings: null,
+  couponCodeResponse: null,
+  orderHistoryResponse: null,
 
   /* ================= GET CATALOG MODELS ================= */
   getCatalogModels: async () => {
@@ -234,6 +237,90 @@ const orderingStore = create((set, get) => ({
       console.log("clearCart error", err);
       set({ errorMessage: err.message });
       return false;
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /* ================= GET LOYALTY SETTINGS ================= */
+  getLoyaltySettings: async () => {
+    set({ loading: true, errorMessage: null });
+
+    try {
+      const res = await apiClient.get(apiClient.Urls.getLoyaltySettings);
+
+      if (res?.success) {
+        set({ loyaltySettings: res.settings || null });
+      } else {
+        set({
+          loyaltySettings: null,
+          errorMessage: res?.message || "Failed to load loyalty settings",
+        });
+      }
+    } catch (err) {
+      console.log("getLoyaltySettings error", err);
+      set({ errorMessage: err.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /* ================= APPLY COUPON ================= */
+  apply_coupon: async (coupon_code, amount) => {
+    set({ loading: true, errorMessage: null });
+
+    try {
+      const res = await apiClient.post(
+        apiClient.Urls.apply_coupon,
+        {
+          coupon: coupon_code,
+          amount: amount,
+        }
+      );
+
+      if (res?.success) {
+        set({
+          couponCodeResponse: res,
+          errorMessage: null
+        });
+        return res;
+      } else {
+        set({
+          couponCodeResponse: null,
+          errorMessage: res?.message || "Invalid coupon"
+        });
+        return null;
+      }
+    } catch (err) {
+      console.log("apply_coupon error", err);
+      set({
+        errorMessage: err.message
+      });
+      return null;
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  /* ================= ORDER HISTORY ================= */
+  orderHistory: async () => {
+    set({ loading: true, errorMessage: null });
+
+    try {
+      const res = await apiClient.get(apiClient.Urls.order_history);
+
+      console.log("order_history →", res);
+
+      if (res?.success) {
+        set({ orderHistoryResponse: res.data || [] });
+      } else {
+        set({ errorMessage: res?.message || "Failed to load order history" });
+        return [];
+      }
+    } catch (err) {
+      console.log("orderHistory error", err);
+      set({ errorMessage: err.message });
+      return [];
     } finally {
       set({ loading: false });
     }

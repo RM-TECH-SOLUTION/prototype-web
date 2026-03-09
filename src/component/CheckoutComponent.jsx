@@ -1,23 +1,169 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import orderingStore from '../store/orderingStore';
+import useSessionStore from '../store/useSessionStore';
+import useAuthStore from '../store/useAuthStore';
 import './CheckoutComponent.css';
 
 const CheckoutComponent = () => {
-  const { cartItems, getCart, updateQty, deleteCartItem, loading } = orderingStore();
+  const { cartItems, catalogItems, getCart, updateQty, deleteCartItem, loading, getMerchant, merchantData, getCatalogItems, getCatalogModels, selectedCatalogId } = orderingStore();
+  const { user } = useSessionStore();
+  const { getProfile, profile } = useAuthStore();
   const navigate = useNavigate();
+  const [processingPayment, setProcessingPayment] = useState(false);
+  const [itemsWithImages, setItemsWithImages] = useState([]);
 
   useEffect(() => {
     getCart();
+    getMerchant();
+    getProfile();
+    getCatalogModels();
+  }, []);
+
+  // Whenever cart items change, try to load catalog items to get images
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+    
+    // If we don't have catalog items, try to load from the first catalog
+    const state = orderingStore.getState();
+    if (state.catalogModels && state.catalogModels.length > 0 && !state.catalogItems?.length) {
+      getCatalogItems(state.catalogModels[0].id);
+    }
+  }, [cartItems.length]);
+
+  // Merge cart items with catalog items to get images
+  useEffect(() => {
+    if (cartItems.length > 0 && catalogItems.length > 0) {
+      const itemsMap = new Map();
+      catalogItems.forEach(catItem => {
+        const images = Array.isArray(catItem.images) ? catItem.images : 
+                      Array.isArray(catItem.image) ? catItem.image : 
+                      catItem.image ? [catItem.image] : [];
+        itemsMap.set(catItem.id, {
+          ...catItem,
+          image: images[0] || 'https://via.placeholder.com/80'
+        });
+      });
+
+      const mergedItems = cartItems.map(cartItem => ({
+        ...cartItem,
+        image: itemsMap.get(cartItem.item_id)?.image || 'https://via.placeholder.com/80'
+      }));
+
+      setItemsWithImages(mergedItems);
+    } else {
+      setItemsWithImages(cartItems);
+    }
+  }, [cartItems, catalogItems]);
+
+  // Load Razorpay script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    document.body.appendChild(script);
+    return () => document.body.removeChild(script);
   }, []);
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
-  const handleCheckout = () => {
-    alert('Proceeding to payment...');
-    // Razorpay integration would go here
+  const handleCheckout = async () => {
+    if (!user) {
+      alert('Please login to continue');
+      navigate('/login');
+      return;
+    }
+
+    if (!cartItems.length) {
+      alert('Cart is empty');
+      return;
+    }
+
+    setProcessingPayment(true);
+
+    try {
+      const total = calculateTotal();
+      const orderId = `ORD-${Date.now()}-${user.id}`;
+
+      // Create Razorpay order from backend
+      const orderResponse = await fetch('https://api.rmtechsolution.com/razorpay.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: Math.round(total * 100), // Razorpay expects amount in paise
+          currency: 'INR',
+          receipt: orderId,
+          merchant_id: 9,
+          user_id: user.id,
+        }),
+      });
+
+      const orderData = await orderResponse.json();
+
+      if (!orderData.id) {
+        alert('Failed to create order');
+        setProcessingPayment(false);
+        return;
+      }
+
+      // Open Razorpay checkout
+      const options = {
+        key: 'rzp_test_RfB9T8TS7ruuZP', // Your test key
+        amount: Math.round(total * 100),
+        currency: 'INR',
+        name: merchantData?.name || 'RM Tech Solution',
+        description: 'Order Payment',
+        order_id: orderData.id,
+        prefill: {
+          contact: user.phone || '',
+          email: user.email || '',
+          name: user.name || 'Customer',
+        },
+        handler: async (response) => {
+          // Payment successful
+          if (response.razorpay_payment_id) {
+            try {
+              // Verify payment and create order in backend
+              await fetch('https://api.rmtechsolution.com/create_order.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  order_id: orderId,
+                  razorpay_order_id: orderData.id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  merchant_id: 9,
+                  user_id: user.id,
+                  items: cartItems,
+                  address: profile?.address || '',
+                  amount: total,
+                  orderType: 'online',
+                  status: 'success',
+                }),
+              });
+
+              alert('Payment successful! Order created.');
+              // Clear cart and navigate
+              await getCart();
+              navigate('/order-history');
+            } catch (err) {
+              console.error('Order creation error:', err);
+              alert('Payment received but order creation failed. Please contact support.');
+            }
+          }
+        },
+        theme: { color: '#E50914' },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Error processing payment: ' + error.message);
+    } finally {
+      setProcessingPayment(false);
+    }
   };
 
   const styles = {
@@ -195,12 +341,13 @@ const CheckoutComponent = () => {
         </div>
       ) : (
         <>
-          {cartItems.map((item) => (
+          {itemsWithImages.map((item) => (
             <div key={item.cart_id} style={styles.cartItem}>
               <img 
-                src={item.image || 'https://via.placeholder.com/80'} 
+                src={item.image} 
                 alt={item.item_name}
                 style={styles.itemImage}
+                onError={(e) => { e.target.src = 'https://via.placeholder.com/80'; }}
               />
               <div style={styles.itemInfo}>
                 <h3 style={styles.itemName}>{item.item_name}</h3>
@@ -211,12 +358,12 @@ const CheckoutComponent = () => {
                 <div style={styles.quantityControl}>
                   <button 
                     style={styles.qtyButton}
-                    onClick={() => updateQty(item.cart_id, 'decrease')}
-                  >-</button>
+                    onClick={() => updateQty(item.cart_id, 'dec')}
+                  >−</button>
                   <span style={styles.qtyText}>{item.quantity}</span>
                   <button 
                     style={styles.qtyButton}
-                    onClick={() => updateQty(item.cart_id, 'increase')}
+                    onClick={() => updateQty(item.cart_id, 'inc')}
                   >+</button>
                   <button 
                     style={styles.deleteButton}
@@ -244,8 +391,12 @@ const CheckoutComponent = () => {
               <span style={styles.totalLabel}>Total</span>
               <span style={styles.totalValue}>₹{calculateTotal()}</span>
             </div>
-            <button style={styles.checkoutButton} onClick={handleCheckout}>
-              Proceed to Payment
+            <button 
+              style={{...styles.checkoutButton, opacity: processingPayment ? 0.6 : 1}}
+              onClick={handleCheckout}
+              disabled={processingPayment}
+            >
+              {processingPayment ? 'Processing...' : 'Proceed to Payment'}
             </button>
           </div>
         </>

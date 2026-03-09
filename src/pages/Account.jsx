@@ -1,14 +1,21 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ProfileComponent from '../component/ProfileComponent';
 import useSessionStore from '../store/useSessionStore';
 import useAuthStore from '../store/useAuthStore';
 import useCmsStore from '../store/useCmsStore';
 
 const Account = () => {
   const { user, isLoggedIn, profileData } = useSessionStore();
-  const { logoutUser } = useAuthStore();
+  const { logoutUser, getProfile } = useAuthStore();
   const { cmsData } = useCmsStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getProfile();
+    }
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     logoutUser();
@@ -36,47 +43,22 @@ const Account = () => {
       color: '#E50914',
       textDecoration: 'none',
     },
-    card: {
-      backgroundColor: '#1C1C1C',
-      padding: '20px',
-      borderRadius: '20px',
-      marginBottom: '20px',
-      borderWidth: '1px',
-      borderColor: '#2A2A2A',
-    },
-    avatarCircle: {
-      width: '70px',
-      height: '70px',
-      borderRadius: '35px',
-      backgroundColor: '#E50914',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: '10px',
-    },
-    avatarText: {
-      fontSize: '26px',
-      fontWeight: '800',
-      color: '#fff',
-    },
-    name: {
-      fontSize: '20px',
-      fontWeight: '800',
-      marginBottom: '5px',
-    },
-    email: {
-      fontSize: '14px',
-      color: '#ccc',
-    },
     menuItem: {
       display: 'flex',
       alignItems: 'center',
       padding: '15px',
-      backgroundColor: '#1C1C1C',
-      borderRadius: '18px',
-      marginBottom: '14px',
-      borderWidth: '1px',
-      borderColor: '#2A2A2A',
+      backgroundColor: '#2A2A2A',
+      borderRadius: '12px',
+      marginBottom: '12px',
+      cursor: 'pointer',
+      transition: 'all 0.3s',
+    },
+    menuItemHover: {
+      backgroundColor: '#3A3A3A',
+    },
+    menuIcon: {
+      marginRight: '14px',
+      fontSize: '20px',
     },
     menuText: {
       fontSize: '16px',
@@ -84,42 +66,17 @@ const Account = () => {
       color: '#fff',
     },
     logoutButton: {
+      width: '100%',
       backgroundColor: '#E50914',
+      color: '#fff',
       padding: '15px',
-      borderRadius: '14px',
-      alignItems: 'center',
+      borderRadius: '12px',
+      border: 'none',
+      fontSize: '16px',
+      fontWeight: '700',
+      cursor: 'pointer',
       marginTop: '20px',
-    },
-    logoutText: {
-      color: '#fff',
-      fontSize: '15px',
-      fontWeight: '700',
-    },
-    guestContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '40px',
-    },
-    guestTitle: {
-      fontSize: '18px',
-      fontWeight: '800',
-      marginTop: '10px',
-    },
-    guestSub: {
-      fontSize: '14px',
-      color: '#aaa',
-      marginBottom: '15px',
-    },
-    loginButton: {
-      backgroundColor: '#E50914',
-      paddingVertical: '10px',
-      paddingHorizontal: '30px',
-      borderRadius: '14px',
-    },
-    loginText: {
-      color: '#fff',
-      fontWeight: '700',
+      transition: 'all 0.3s',
     },
   };
 
@@ -128,18 +85,11 @@ const Account = () => {
       <div style={styles.container}>
         <header style={styles.header}>
           <h1 style={styles.title}>Account</h1>
-          <Link to="/" style={styles.navLink}>Home</Link>
-        </header>
-        <div style={styles.guestContainer}>
-          <div style={styles.avatarCircle}>
-            <span style={{ fontSize: '30px' }}>👤</span>
-          </div>
-          <h2 style={styles.guestTitle}>Hey Guest 👋</h2>
-          <p style={styles.guestSub}>Login to manage your account</p>
-          <Link to="/login" style={styles.loginButton}>
-            <span style={styles.loginText}>Login</span>
+          <Link to="/" style={styles.navLink}>
+            Home
           </Link>
-        </div>
+        </header>
+        <ProfileComponent user={null} uiConfig={{}} />
       </div>
     );
   }
@@ -148,38 +98,59 @@ const Account = () => {
     <div style={styles.container}>
       <header style={styles.header}>
         <h1 style={styles.title}>Account</h1>
-        <Link to="/" style={styles.navLink}>Home</Link>
+        <Link to="/" style={styles.navLink}>
+          Home
+        </Link>
       </header>
 
-      <div style={styles.card}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={styles.avatarCircle}>
-            <span style={styles.avatarText}>
-              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-            </span>
+      <ProfileComponent user={user} uiConfig={{}} />
+
+      <div style={{ marginTop: '20px', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
+          Account Settings
+        </h2>
+
+        <Link to="/order-history" style={{ textDecoration: 'none' }}>
+          <div
+            style={styles.menuItem}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3A3A3A')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2A2A2A')}
+          >
+            <span style={styles.menuIcon}>📦</span>
+            <span style={styles.menuText}>Order History</span>
           </div>
-          <h2 style={styles.name}>{user?.name || 'User'}</h2>
-          <p style={styles.email}>{user?.email || 'No email'}</p>
-        </div>
+        </Link>
+
+        <Link to="/account/saved-address" style={{ textDecoration: 'none' }}>
+          <div
+            style={styles.menuItem}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3A3A3A')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2A2A2A')}
+          >
+            <span style={styles.menuIcon}>📍</span>
+            <span style={styles.menuText}>My Address</span>
+          </div>
+        </Link>
+
+        <Link to="/help" style={{ textDecoration: 'none' }}>
+          <div
+            style={styles.menuItem}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3A3A3A')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2A2A2A')}
+          >
+            <span style={styles.menuIcon}>❓</span>
+            <span style={styles.menuText}>Help & Support</span>
+          </div>
+        </Link>
       </div>
 
-      <div style={styles.card}>
-        <div style={styles.menuItem}>
-          <span style={{ marginRight: '14px', fontSize: '22px' }}>📦</span>
-          <span style={styles.menuText}>My Orders</span>
-        </div>
-        <div style={styles.menuItem}>
-          <span style={{ marginRight: '14px', fontSize: '22px' }}>📍</span>
-          <span style={styles.menuText}>My Address</span>
-        </div>
-        <div style={styles.menuItem}>
-          <span style={{ marginRight: '14px', fontSize: '22px' }}>❓</span>
-          <span style={styles.menuText}>Help</span>
-        </div>
-      </div>
-
-      <button style={styles.logoutButton} onClick={handleLogout}>
-        <span style={styles.logoutText}>Logout</span>
+      <button
+        style={styles.logoutButton}
+        onClick={handleLogout}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = '#d40710')}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = '#E50914')}
+      >
+        Logout
       </button>
     </div>
   );

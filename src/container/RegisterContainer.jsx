@@ -30,7 +30,7 @@ const RegisterContainer = () => {
   let cmsConfig = {};
   if (cmsData && Array.isArray(cmsData)) {
     cmsData.forEach((item) => {
-      if (item.modelSlug === 'registrationUiConfiguration') {
+      if (item.modelSlug === "registerConfiguration") {
         const cms = item.cms || {};
         if (Array.isArray(cms)) {
           // If cms is an array, combine all items
@@ -47,7 +47,7 @@ const RegisterContainer = () => {
     acc[key] = extractValue(value);
     return acc;
   }, {});
-  
+  console.log('Registration CMS Config:', cleanedConfig);
   return <RegistrationScreen cmsConfig={cleanedConfig} />;
 };
 
