@@ -87,7 +87,7 @@ const ProductDetailComponent = () => {
   const cartId = cartItem?.cart_id;
 
   const handleAddToCart = async () => {
-    if (selectedVariant) {
+
       await addToCart({
         item_id: product.id,
         item_name: product.name,
@@ -100,7 +100,7 @@ const ProductDetailComponent = () => {
       });
       await getCart();
       setQuantity(1);
-    }
+  
   };
 
   const handleCheckout = () => {
@@ -164,6 +164,30 @@ const ProductDetailComponent = () => {
     }
   };
 
+
+const normalizeSpecs = (specs) => {
+  if (!specs) return {};
+
+  // If already object
+  if (typeof specs === "object" && !Array.isArray(specs)) {
+    return specs;
+  }
+
+  // If string
+  if (typeof specs === "string") {
+    try {
+      const parsed = JSON.parse(specs);
+      if (typeof parsed === "object") return parsed;
+    } catch (e) {
+      // fallback
+      return { Specification: specs };
+    }
+  }
+
+  return {};
+};
+
+const parsedSpecs = normalizeSpecs(product.specifications);
   return (
     <div className="product-detail-container">
       {/* Header */}
@@ -279,12 +303,27 @@ const ProductDetailComponent = () => {
               </button>
               {showFullSpec && (
                 <div className="product-specs-list">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="product-spec-item">
-                      <span className="product-spec-key">{key}</span>
-                      <span className="product-spec-value">{value}</span>
-                    </div>
-                  ))}
+{parsedSpecs && Object.keys(parsedSpecs).length > 0 && (
+  <div className="product-specs-section">
+    <button
+      className="product-specs-toggle"
+      onClick={() => setShowFullSpec(!showFullSpec)}
+    >
+      {showFullSpec ? "▼ Hide Specifications" : "▶ Show Specifications"}
+    </button>
+
+    {showFullSpec && (
+      <div className="product-specs-list">
+        {Object.entries(parsedSpecs).map(([key, value]) => (
+          <div key={key} className="product-spec-item">
+            <span className="product-spec-key">{key}</span>
+            <span className="product-spec-value">{value}</span>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+)}
                 </div>
               )}
             </div>
@@ -294,7 +333,7 @@ const ProductDetailComponent = () => {
           <div className="product-actions-section">
             <button 
               className="product-add-btn" 
-              onClick={handleAddToCart}
+              onClick={handleIncrement}
               disabled={isUpdating}
             >
               {currentQty > 0 ? `Add More (${currentQty} in cart)` : 'Add to Cart'}
