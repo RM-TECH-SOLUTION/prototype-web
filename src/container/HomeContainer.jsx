@@ -5,6 +5,7 @@ import HomeScreen from "../component/HomeScreen";
 import Account from "../pages/Account";
 import CategoryContainer from "./CategoryContainer";
 import useCmsStore from "../store/useCmsStore";
+import orderingStore from "../store/orderingStore";
 
 // Helper to extract values from potential field objects
 const extractValue = (value) => {
@@ -12,17 +13,17 @@ const extractValue = (value) => {
   if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
     return value;
   }
-  
+
   // If it's an object with fieldValue property, extract it
   if (value && typeof value === 'object' && value.fieldValue !== undefined) {
     return extractValue(value.fieldValue); // Recursive in case fieldValue is also nested
   }
-  
+
   // If it's an object (but not a field object), return null to prevent React errors
   if (value && typeof value === 'object') {
     return null;
   }
-  
+
   // Return null, undefined, or any other primitive
   return value;
 };
@@ -30,7 +31,7 @@ const extractValue = (value) => {
 // Helper to parse the custom CMS field format like "@{fieldName=... fieldKey=... fieldValue=...}"
 const parseCmsValue = (value) => {
   if (!value || typeof value !== 'string') return value;
-  
+
   // Check if it's in the @{...} format
   if (value.startsWith('@{') && value.endsWith('}')) {
     const inner = value.slice(2, -1);
@@ -73,6 +74,7 @@ const normalizeCmsFields = (cms) => {
 
 const HomeContainer = () => {
   const { cmsData, getCmsData } = useCmsStore();
+  const { getCart, getLoyaltySettings } = orderingStore();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -83,11 +85,13 @@ const HomeContainer = () => {
 
   useEffect(() => {
     getCmsData();
-  }, []);
+    getCart();
+    getLoyaltySettings();
+  }, [getCmsData, getCart, getLoyaltySettings]);
 
   useEffect(() => {
     console.log("📊 CMS Data received:", cmsData);
-    
+
     if (!cmsData || !Array.isArray(cmsData)) {
       console.log("⚠️ CMS Data is not an array or is null");
       return;
@@ -95,7 +99,7 @@ const HomeContainer = () => {
 
     cmsData.forEach((item) => {
       if (!item.modelSlug) return;
-      
+
       switch (item.modelSlug) {
         case "homeUiConfiguration":
           setUiConfig(normalizeCmsFields(item.cms));
@@ -123,7 +127,7 @@ const HomeContainer = () => {
   // Render the appropriate component based on current route
   const renderContent = () => {
     const path = location.pathname;
-    
+
     if (path === "/" || path === "") {
       return (
         <HomeScreen
@@ -134,15 +138,15 @@ const HomeContainer = () => {
         />
       );
     }
-    
+
     if (path === "/categories" || path === "/category") {
       return <CategoryContainer />;
     }
-    
+
     if (path === "/account") {
       return <Account />;
     }
-    
+
     return (
       <HomeScreen
         uiConfig={uiConfig}

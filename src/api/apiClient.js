@@ -20,6 +20,7 @@ const URLS = {
   getCatalogueItems: BASE_URL + "getCatalogueItems.php",
   clearCart: BASE_URL + "clear_cart.php",
   razorpay: BASE_URL + "razorpay.php",
+  createOrder: BASE_URL + "create_order.php",
   getMerchant: BASE_URL + "getMerchant.php",
   saveUserAddress: BASE_URL + "save_user_address.php",
   getProfile: BASE_URL + "get_profile.php",
