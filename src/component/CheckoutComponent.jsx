@@ -45,6 +45,7 @@ const CheckoutComponent = () => {
   );
 
   const total = subtotal - discount - pointsDiscount;
+  const availablePoints = profile?.total_points || 0;
 
   const applyCoupon = async () => {
     const res = await fetch(
@@ -227,7 +228,7 @@ const CheckoutComponent = () => {
       {/* COUPON */}
 
       <div className="checkout-card">
-        <h3>Coupon</h3>
+        <h3>Have a coupon?</h3>
 
         <div className="input-row">
           <input
@@ -243,7 +244,7 @@ const CheckoutComponent = () => {
       {/* POINTS */}
 
       <div className="checkout-card">
-        <h3>Redeem Points</h3>
+        <h3> Redeem Points (Available Points: {availablePoints})</h3>
 
         <div className="input-row">
           <input
