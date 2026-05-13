@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
+import AddAddressComponent from "./AddAddressComponent";
 import "./CheckoutComponent.css";
 
 const CheckoutComponent = ({
@@ -32,11 +33,16 @@ const CheckoutComponent = ({
   const [pointsDiscount, setPointsDiscount] = useState(0);
 
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [showPaymentSheet, setShowPaymentSheet] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
 
   const profileToUse = profile || profileData || {};
   const availablePoints = profileToUse?.total_points || 0;
+
+  // Match app: read enableCOD / enableOnline from uiConfig
+  const enableCOD = uiConfig?.enableCOD;
+  const enableOnline = uiConfig?.enableOnline;
 
   useEffect(() => {
     if (getCart) getCart();
@@ -143,10 +149,19 @@ const CheckoutComponent = ({
     setPointsInput("");
   };
 
+  const handleAddressSave = async (data) => {
+    if (saveUserAddress) {
+      await saveUserAddress(data);
+    }
+    if (getProfile) {
+      await getProfile();
+    }
+    alert("Address saved");
+  };
+
   const createOrder = async (type) => {
     if (!profileToUse?.address) {
       alert("Please add delivery address");
-      navigate("/saved-address");
       return;
     }
 
@@ -179,10 +194,23 @@ const CheckoutComponent = ({
 
       // Cash on Delivery
       if (type === "COD") {
-        if (clearCart) clearCart();
-        if (getCart) getCart();
+        if (clearCart) {
+          await clearCart();
+        }
+        if (getCart) {
+          await getCart();
+        }
+
+        setAppliedCoupon(null);
+        setDiscount(0);
+        setCouponCode("");
+        setAppliedPoints(null);
+        setPointsDiscount(0);
+        setPointsInput("");
+        setPaymentMethod(null);
 
         alert("Order placed successfully");
+        setShowPaymentSheet(false);
         navigate("/order-history");
         return;
       }
@@ -219,7 +247,23 @@ const CheckoutComponent = ({
             }),
           });
 
+          if (clearCart) {
+            await clearCart();
+          }
+          if (getCart) {
+            await getCart();
+          }
+
+          setAppliedCoupon(null);
+          setDiscount(0);
+          setCouponCode("");
+          setAppliedPoints(null);
+          setPointsDiscount(0);
+          setPointsInput("");
+          setPaymentMethod(null);
+
           alert("Payment successful");
+          setShowPaymentSheet(false);
           navigate("/order-history");
         },
         prefill: {
@@ -228,16 +272,60 @@ const CheckoutComponent = ({
           contact: user?.phone,
         },
         theme: { color: "#E50914" },
+        modal: {
+          ondismiss: async function () {
+            await fetch(apiClient.Urls.createOrder, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                order_id: order.id,
+                merchant_id: merchantData?.merchantId,
+                user_id: user?.id,
+                phone: user?.phone,
+                items: cartItems,
+                address: JSON.stringify(profileToUse?.address || {}),
+                amount: Number(total),
+                orderType: "online",
+                couponDiscount: discount || 0,
+                pointsDiscount: pointsDiscount || 0,
+                status: "failure",
+              }),
+            });
+          },
+        },
       };
 
       const rzp = new window.Razorpay(options);
+
+      rzp.on("payment.failed", async function () {
+        await fetch(apiClient.Urls.createOrder, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            order_id: order.id,
+            merchant_id: merchantData?.merchantId,
+            user_id: user?.id,
+            phone: user?.phone,
+            items: cartItems,
+            address: JSON.stringify(profileToUse?.address || {}),
+            amount: Number(total),
+            orderType: "online",
+            couponDiscount: discount || 0,
+            pointsDiscount: pointsDiscount || 0,
+            status: "failure",
+          }),
+        });
+
+        alert("Payment cancelled");
+      });
+
       rzp.open();
     } catch (err) {
       console.log(err);
       alert("Payment error");
+    } finally {
+      setProcessing(false);
     }
-
-    setProcessing(false);
   };
 
   return (
@@ -249,8 +337,11 @@ const CheckoutComponent = ({
         className="checkout-header"
         style={{ backgroundColor: uiConfig?.headerBgColor || "#111" }}
       >
-        <h1>Checkout</h1>
-        <Link to="/">Home</Link>
+        <button className="checkout-back-btn" onClick={() => navigate(-1)}>
+          &#8592;
+        </button>
+        <h1 style={{ color: uiConfig?.headerTextColor || "#fff" }}>Checkout</h1>
+        <div style={{ width: 32 }} />
       </header>
 
       {/* ADDRESS */}
@@ -273,109 +364,49 @@ const CheckoutComponent = ({
             </button>
           </>
         ) : (
-          <button
-            className="btn-primary"
-            onClick={() => navigate("/saved-address")}
-          >
-            Add Address
-          </button>
+          <AddAddressComponent
+            onSave={handleAddressSave}
+            uiConfig={addressUiConfig}
+            getProfile={getProfile}
+          />
         )}
       </div>
 
       {/* CART ITEMS */}
-      {cartItems.map((item) => (
-        <div key={item.cart_id} className="cart-item">
-          <div>
-            <img
-              src={item.images?.[0] || "https://via.placeholder.com/80"}
-              alt={item.item_name}
-              className="cart-item-image"
-              style={{
-                width: "60px",
-                height: "60px",
-                objectFit: "cover",
-                borderRadius: "8px",
-              }}
-            />
-            <h4>{item.item_name}</h4>
-            <p className="price">₹{item.total}</p>
-          </div>
-
-          <div className="qty-control">
-            <button onClick={() => updateQty(item.cart_id, "dec")}>-</button>
-            <span>{item.quantity}</span>
-            <button onClick={() => updateQty(item.cart_id, "inc")}>+</button>
-
-            <button
-              className="delete-btn"
-              onClick={() => deleteCartItem(item.cart_id)}
-            >
-              🗑
-            </button>
-          </div>
+      {cartItems.length === 0 ? (
+        <div className="empty-cart">
+          <p>Your cart is empty</p>
         </div>
-      ))}
-
-      {/* COUPON */}
-      <div className="checkout-card">
-        {appliedCoupon ? (
-          <div className="coupon-row-between">
-            <div>
-              <p className="coupon-title">Coupon Applied</p>
-              <p className="coupon-applied-text">{appliedCoupon}</p>
-            </div>
-            <button
-              className="secondary-btn"
-              onClick={() => {
-                setAppliedCoupon(null);
-                setDiscount(0);
-                setCouponCode("");
-              }}
-            >
-              Remove
-            </button>
-          </div>
-        ) : (
-          <>
-            <h3>Have a coupon?</h3>
-            <div className="input-row">
-              <input
-                placeholder="Enter coupon code"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
+      ) : (
+        cartItems.map((item) => (
+          <div key={item.cart_id} className="cart-item">
+            <div className="cart-item-info">
+              <img
+                src={item.images?.[0] || "https://via.placeholder.com/80"}
+                alt={item.item_name}
+                className="cart-item-image"
               />
-              <button onClick={applyCoupon}>Apply</button>
+              <div>
+                <h4>{item.item_name}</h4>
+                {item.variant_name && <p className="variant-name">{item.variant_name}</p>}
+                <p className="price">₹{item.total}</p>
+              </div>
             </div>
-          </>
-        )}
 
-        {discount > 0 && (
-          <p className="discount-text">Coupon applied: -₹{discount}</p>
-        )}
-      </div>
-
-      {/* POINTS */}
-      <div className="checkout-card">
-        <h3>Redeem Points (Available Points: {availablePoints})</h3>
-        <div className="input-row">
-          <input
-            placeholder="Enter points"
-            value={pointsInput}
-            onChange={(e) => setPointsInput(e.target.value)}
-          />
-          <button onClick={applyPoints}>Redeem</button>
-          <button
-            className="secondary-btn"
-            onClick={removePoints}
-            disabled={!appliedPoints}
-          >
-            Remove
-          </button>
-        </div>
-        {pointsDiscount > 0 && (
-          <p className="discount-text">Points discount: -₹{pointsDiscount}</p>
-        )}
-      </div>
+            <div className="qty-control">
+              <button onClick={() => updateQty(item.cart_id, "dec")}>-</button>
+              <span>{item.quantity}</span>
+              <button onClick={() => updateQty(item.cart_id, "inc")}>+</button>
+              <button
+                className="delete-btn"
+                onClick={() => deleteCartItem(item.cart_id)}
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+        ))
+      )}
 
       {/* SUMMARY */}
       <div className="checkout-summary">
@@ -404,38 +435,171 @@ const CheckoutComponent = ({
         </div>
       </div>
 
-      {/* PAYMENT OPTIONS */}
-      <div className="payment-options">
+      {/* PAY BUTTON — opens payment sheet */}
+      <div className="checkout-bottom">
+        <span className="bottom-total">₹{total}</span>
         <button
-          className={`payment-btn ${
-            paymentMethod === "online" ? "active" : ""
-          }`}
-          onClick={() => setPaymentMethod("online")}
+          className="pay-btn"
+          style={{
+            backgroundColor: uiConfig?.primaryColor || "#E50914",
+            color: uiConfig?.primaryTextColor || "#fff",
+          }}
+          onClick={() => setShowPaymentSheet(true)}
         >
-          Pay Online
-        </button>
-
-        <button
-          className={`payment-btn ${
-            paymentMethod === "COD" ? "active" : ""
-          }`}
-          onClick={() => setPaymentMethod("COD")}
-        >
-          Cash on Delivery
+          Pay ₹{total}
         </button>
       </div>
 
-      <button
-        className="checkout-btn"
-        disabled={
-          !paymentMethod ||
-          processing ||
-          (paymentMethod === "online" && !razorpayLoaded)
-        }
-        onClick={() => createOrder(paymentMethod)}
-      >
-        {processing ? "Processing..." : "Continue"}
-      </button>
+      {/* PAYMENT SHEET OVERLAY — matches app modal */}
+      {showPaymentSheet && (
+        <div className="payment-overlay" onClick={() => setShowPaymentSheet(false)}>
+          <div className="payment-sheet" onClick={(e) => e.stopPropagation()}>
+
+            <div className="sheet-header">
+              <span className="sheet-title">Choose Payment Method</span>
+              <button className="sheet-close" onClick={() => setShowPaymentSheet(false)}>✕</button>
+            </div>
+
+            {/* REDEEM POINTS */}
+            <div
+              className="coupon-card"
+              style={{ borderColor: uiConfig?.primaryColor || "#E50914" }}
+            >
+              {appliedPoints ? (
+                <div className="coupon-row-between">
+                  <div>
+                    <p className="coupon-title">Points Applied</p>
+                    <p className="coupon-applied-text">{appliedPoints} Points</p>
+                  </div>
+                  <button className="remove-btn" onClick={removePoints}>Remove</button>
+                </div>
+              ) : (
+                <>
+                  <p className="coupon-title">
+                    Redeem Points (Available: {availablePoints})
+                  </p>
+                  <p className="coupon-hint">
+                    Max: {loyaltySettings?.max_redeem_points} pts or {loyaltySettings?.max_redeem_percentage}% of order
+                  </p>
+                  <div className="coupon-row">
+                    <input
+                      className="coupon-input"
+                      placeholder="Enter points"
+                      value={pointsInput}
+                      type="number"
+                      onChange={(e) => setPointsInput(e.target.value)}
+                    />
+                    <button
+                      className="apply-btn"
+                      style={{ backgroundColor: uiConfig?.primaryColor || "#E50914" }}
+                      onClick={applyPoints}
+                    >
+                      Redeem
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* COUPON */}
+            <div
+              className="coupon-card"
+              style={{ borderColor: uiConfig?.primaryColor || "#E50914" }}
+            >
+              {appliedCoupon ? (
+                <div className="coupon-row-between">
+                  <div>
+                    <p className="coupon-title">Coupon Applied</p>
+                    <p className="coupon-applied-text">{appliedCoupon}</p>
+                  </div>
+                  <button
+                    className="remove-btn"
+                    onClick={() => { setAppliedCoupon(null); setDiscount(0); setCouponCode(""); }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p className="coupon-title">Have a coupon?</p>
+                  <div className="coupon-row">
+                    <input
+                      className="coupon-input"
+                      placeholder="Enter code"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                    />
+                    <button
+                      className="apply-btn"
+                      style={{ backgroundColor: uiConfig?.primaryColor || "#E50914" }}
+                      onClick={applyCoupon}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* PAYMENT OPTIONS — controlled by CMS config same as app */}
+            {(enableOnline === true || enableOnline === "true") && (
+              <button
+                className={`payment-option-btn ${paymentMethod === "online" ? "active-option" : ""}`}
+                style={paymentMethod === "online" ? { borderColor: uiConfig?.primaryColor || "#E50914" } : {}}
+                onClick={() => setPaymentMethod("online")}
+              >
+                <div className="option-row">
+                  <div>
+                    <span className="option-label">Pay Online</span>
+                    <span className="option-amount">₹{total}</span>
+                  </div>
+                  {paymentMethod === "online" && <span className="check-icon">✓</span>}
+                </div>
+              </button>
+            )}
+
+            {(enableCOD === true || enableCOD === "true") && (
+              <button
+                className={`payment-option-btn ${paymentMethod === "COD" ? "active-option" : ""}`}
+                style={paymentMethod === "COD" ? { borderColor: uiConfig?.primaryColor || "#E50914" } : {}}
+                onClick={() => setPaymentMethod("COD")}
+              >
+                <div className="option-row">
+                  <div>
+                    <span className="option-label">Cash on Delivery</span>
+                    <span className="option-amount">₹{total}</span>
+                  </div>
+                  {paymentMethod === "COD" && <span className="check-icon">✓</span>}
+                </div>
+              </button>
+            )}
+
+            {/* PRICE BREAKDOWN */}
+            <div className="price-breakdown">
+              <div className="summary-row"><span>Subtotal</span><span>₹{subtotal.toFixed(2)}</span></div>
+              {discount > 0 && (
+                <div className="summary-row discount"><span>Coupon Discount</span><span>-₹{discount}</span></div>
+              )}
+              {pointsDiscount > 0 && (
+                <div className="summary-row discount"><span>Points Discount</span><span>-₹{pointsDiscount}</span></div>
+              )}
+              <div className="sheet-divider" />
+              <div className="summary-row total"><span>Total Payable</span><span>₹{total}</span></div>
+            </div>
+
+            {/* CONTINUE */}
+            <button
+              className="continue-btn"
+              style={paymentMethod ? { backgroundColor: uiConfig?.primaryColor || "#E50914" } : {}}
+              disabled={!paymentMethod || processing}
+              onClick={() => createOrder(paymentMethod)}
+            >
+              {processing ? "Processing..." : "Continue"}
+            </button>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };

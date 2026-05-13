@@ -40,12 +40,13 @@ const SavedAddressComponent = () => {
     }
   }, [profile]);
 
-  const handleSaveAddress = (newAddress) => {
+  const handleSaveAddress = async (newAddress) => {
     setAddress({
       ...newAddress,
       id: 'profile-address',
     });
-    saveUserAddress(newAddress);
+    await saveUserAddress(newAddress);
+    await getProfile();
   };
 
   const styles = {
@@ -156,7 +157,11 @@ const SavedAddressComponent = () => {
         )}
       </div>
 
-      <AddAddressComponent onSave={handleSaveAddress} uiConfig={uiConfig} />
+      <AddAddressComponent
+        onSave={handleSaveAddress}
+        uiConfig={uiConfig}
+        getProfile={getProfile}
+      />
     </div>
   );
 };

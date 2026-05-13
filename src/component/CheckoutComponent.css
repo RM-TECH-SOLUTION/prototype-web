@@ -1,7 +1,7 @@
 .checkout-container{
   max-width:650px;
   margin:auto;
-  padding:20px;
+  padding: 0 0 100px 0;
   color:#fff;
   background:#111;
   min-height:100vh;
@@ -11,14 +11,33 @@
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.checkout-header h1{
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.checkout-back-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
 }
 
 .checkout-card{
   background:#1C1C1C;
   padding:16px;
   border-radius:12px;
-  margin-bottom:16px;
+  margin: 12px 16px 0;
 }
 
 .cart-item{
@@ -26,70 +45,80 @@
   justify-content:space-between;
   align-items:center;
   background:#2A2A2A;
-  padding:15px;
+  padding:12px 16px;
   border-radius:12px;
-  margin-bottom:12px;
+  margin: 8px 16px 0;
+}
+
+.cart-item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-item-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.variant-name {
+  font-size: 12px;
+  color: #888;
+  margin: 2px 0;
 }
 
 .price{
   color:#E50914;
   font-weight:bold;
+  margin: 0;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
 }
 
 .qty-control{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
 .qty-control button{
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
   border:none;
   background:#E50914;
   color:white;
   border-radius:6px;
   cursor:pointer;
+  font-size: 16px;
 }
 
 .delete-btn{
-  background:none;
-  color:#ff4444;
+  background:none !important;
+  color:#ff4444 !important;
   font-size:18px;
-}
-
-.input-row{
-  display:flex;
-  gap:10px;
-}
-
-.input-row input{
-  flex:1;
-  padding:8px;
-  border-radius:6px;
-  border:none;
-}
-
-.input-row button{
-  padding:8px 14px;
-  background:#E50914;
-  border:none;
-  color:white;
-  border-radius:6px;
-  cursor:pointer;
+  width: auto !important;
+  height: auto !important;
 }
 
 .checkout-summary{
   background:#1C1C1C;
   padding:16px;
   border-radius:12px;
-  margin-top:20px;
+  margin: 12px 16px 0;
 }
 
 .summary-row{
   display:flex;
   justify-content:space-between;
   margin-bottom:8px;
+  font-size: 14px;
 }
 
 .discount{
@@ -97,41 +126,228 @@
 }
 
 .total{
-  font-size:18px;
+  font-size:16px;
   font-weight:bold;
 }
 
-.payment-options{
-  display:flex;
-  gap:10px;
-  margin-top:20px;
+/* Sticky bottom pay bar */
+.checkout-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 650px;
+  background: #111;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #222;
+  z-index: 50;
 }
 
-.payment-btn{
-  flex:1;
-  padding:12px;
-  background:#2A2A2A;
-  border:none;
-  color:white;
-  border-radius:10px;
-  cursor:pointer;
+.bottom-total {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
 }
 
-.payment-btn.active{
-  background:#FFF4E5;
-  color:#000;
+.pay-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.checkout-btn{
-  width:100%;
-  padding:16px;
-  margin-top:20px;
-  background:#E50914;
-  border:none;
-  color:white;
-  font-size:16px;
-  border-radius:12px;
-  cursor:pointer;
+/* Payment sheet overlay */
+.payment-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.payment-sheet {
+  background: #1a1a1a;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 16px 32px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sheet-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.sheet-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Coupon card inside sheet */
+.coupon-card {
+  border: 0.5px solid #E50914;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+  background: #2A2A2A;
+}
+
+.coupon-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.coupon-hint {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0 0 8px;
+}
+
+.coupon-applied-text {
+  font-size: 15px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin: 4px 0 0;
+}
+
+.coupon-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.coupon-row-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupon-input {
+  flex: 1;
+  padding: 8px 10px;
+  background: #111;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.apply-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background: none;
+  border: 1px solid #E50914;
+  color: #E50914;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Payment option buttons */
+.payment-option-btn {
+  width: 100%;
+  background: #2A2A2A;
+  border: 1.5px solid #444;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #fff;
+  text-align: left;
+}
+
+.payment-option-btn.active-option {
+  background: #fff4e5;
+  color: #000;
+}
+
+.option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.option-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.option-amount {
+  display: block;
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.active-option .option-amount {
+  color: #555;
+}
+
+.check-icon {
+  color: green;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Price breakdown inside sheet */
+.price-breakdown {
+  margin-bottom: 16px;
+}
+
+.sheet-divider {
+  height: 1px;
+  background: #444;
+  margin: 8px 0;
+}
+
+/* Continue button */
+.continue-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #555;
+}
+
+.continue-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-primary{
@@ -142,4 +358,8 @@
   color:white;
   border-radius:6px;
   cursor:pointer;
+}
+
+.coupon-row-between p {
+  margin: 0;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import orderingStore from '../store/orderingStore';
 import './ProductDetailComponent.css';
@@ -18,6 +18,11 @@ const ProductDetailComponent = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [activeVariantIndex, setActiveVariantIndex] = useState(0);
 
+  const selectedVariantId =
+    selectedVariant?.id ||
+    selectedVariant?.variant_id ||
+    null;
+
   // Initialize variant and quantity when product loads
   useEffect(() => {
     if (product) {
@@ -32,15 +37,25 @@ const ProductDetailComponent = () => {
     }
   }, [product, cartItems]);
 
-  // Re-check cart when cartItems change
+  // Re-check cart when cartItems/variant changes
   useEffect(() => {
     if (product) {
-      const cartItem = cartItems.find(ci => ci.item_id === product.id);
+      const cartItem = cartItems.find((ci) => {
+        if (Number(ci.item_id) !== Number(product.id)) return false;
+
+        if (!selectedVariantId) return true;
+
+        const ciVariant = ci.variant_id || ci.variantId || null;
+        return Number(ciVariant || 0) === Number(selectedVariantId || 0);
+      });
+
       if (cartItem && !isUpdating) {
         setQuantity(parseInt(cartItem.quantity) || 1);
+      } else if (!cartItem && !isUpdating) {
+        setQuantity(1);
       }
     }
-  }, [cartItems, product, isUpdating]);
+  }, [cartItems, product, isUpdating, selectedVariantId]);
 
   if (!product) {
     return (
@@ -82,8 +97,18 @@ const ProductDetailComponent = () => {
 
   const images = getAllImages();
 
-  // Check if product already in cart
-  const cartItem = cartItems.find(ci => ci.item_id === product.id);
+  // Check if selected variant is in cart (fallback to product-only cart rows).
+  const cartItem = useMemo(() => {
+    return cartItems.find((ci) => {
+      if (Number(ci.item_id) !== Number(product.id)) return false;
+
+      if (!selectedVariantId) return true;
+
+      const ciVariant = ci.variant_id || ci.variantId || null;
+      return Number(ciVariant || 0) === Number(selectedVariantId || 0);
+    });
+  }, [cartItems, product.id, selectedVariantId]);
+
   const currentQty = cartItem ? parseInt(cartItem.quantity) : 0;
   const cartId = cartItem?.cart_id;
 
@@ -93,11 +118,11 @@ const ProductDetailComponent = () => {
         item_id: product.id,
         item_name: product.name,
         description: product.description || '',
-        price: selectedVariant.price || product.price,
-        compare_price: selectedVariant.compare_price || product.mrp,
+        price: selectedVariant?.price || product.price,
+        compare_price: selectedVariant?.compare_price || product.mrp,
         quantity: 1,
-        variant_id: selectedVariant.variant_id,
-        variant_name: selectedVariant.variant_name
+        variant_id: selectedVariant?.id || selectedVariant?.variant_id,
+        variant_name: selectedVariant?.variant_name
       });
       await getCart();
       setQuantity(1);
@@ -125,7 +150,7 @@ const ProductDetailComponent = () => {
         price: selectedVariant?.price || product.price,
         compare_price: selectedVariant?.compare_price || product.mrp,
         quantity: newQty,
-        variant_id: selectedVariant?.variant_id,
+        variant_id: selectedVariant?.id || selectedVariant?.variant_id,
         variant_name: selectedVariant?.variant_name
       });
       await getCart();
@@ -297,7 +322,7 @@ const parsedSpecs = normalizeSpecs(product.specifications);
           )}
 
           {/* Specifications */}
-          {product.specifications && Object.keys(product.specifications).length > 0 && (
+          {parsedSpecs && Object.keys(parsedSpecs).length > 0 && (
             <div className="product-specs-section">
               <button
                 className="product-specs-toggle"
@@ -307,17 +332,6 @@ const parsedSpecs = normalizeSpecs(product.specifications);
               </button>
               {showFullSpec && (
                 <div className="product-specs-list">
-{parsedSpecs && Object.keys(parsedSpecs).length > 0 && (
-  <div className="product-specs-section">
-    <button
-      className="product-specs-toggle"
-      onClick={() => setShowFullSpec(!showFullSpec)}
-    >
-      {showFullSpec ? "▼ Hide Specifications" : "▶ Show Specifications"}
-    </button>
-
-    {showFullSpec && (
-      <div className="product-specs-list">
         {Object.entries(parsedSpecs).map(([key, value]) => (
           <div key={key} className="product-spec-item">
             <span className="product-spec-key">{key}</span>
@@ -325,10 +339,6 @@ const parsedSpecs = normalizeSpecs(product.specifications);
           </div>
         ))}
       </div>
-    )}
-  </div>
-)}
-                </div>
               )}
             </div>
           )}

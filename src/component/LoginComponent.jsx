@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/useAuthStore';
-import './LoginComponent.css';
 
 const LoginComponent = ({ cmsConfig = {} }) => {
   const [identity, setIdentity] = useState('');
   const [password, setPassword] = useState('');
+
   const { loginUser, loading } = useAuthStore();
   const navigate = useNavigate();
 
@@ -16,158 +16,132 @@ const LoginComponent = ({ cmsConfig = {} }) => {
     }
   };
 
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      backgroundColor: '#1C1C1C',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-    },
-    card: {
-      backgroundColor: cmsConfig?.cardBackgroundColor || 'rgba(0,0,0,0.75)',
-      padding: '30px',
-      borderRadius: '25px',
-      width: '100%',
-      maxWidth: '400px',
-    },
-    logo: {
-      width: '120px',
-      height: '120px',
-      alignSelf: 'center',
-      marginBottom: '15px',
-      objectFit: 'contain',
-    },
-    title: {
-      fontSize: '26px',
-      fontWeight: 'bold',
-      color: '#fff',
-      textAlign: 'center',
-      marginBottom: '10px',
-    },
-    subtitle: {
-      fontSize: '14px',
-      color: '#ccc',
-      textAlign: 'center',
-      marginBottom: '25px',
-    },
-    inputContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      borderWidth: '1px',
-      borderColor: cmsConfig?.inputBorderColor || '#E50914',
-      borderRadius: '12px',
-      paddingHorizontal: '15px',
-      paddingVertical: '12px',
-      marginBottom: '18px',
-      backgroundColor: 'rgba(255,255,255,0.05)',
-    },
-    inputIcon: {
-      marginRight: '10px',
-      color: '#E50914',
-    },
-    input: {
-      flex: 1,
-      color: '#fff',
-      fontSize: '16px',
-      border: 'none',
-      backgroundColor: 'transparent',
-      outline: 'none',
-    },
-    button: {
-      backgroundColor: cmsConfig?.buttonColor || '#E50914',
-      paddingVertical: '15px',
-      borderRadius: '30px',
-      alignItems: 'center',
-      marginTop: '10px',
-      border: 'none',
-      cursor: 'pointer',
-      width: '100%',
-    },
-    buttonText: {
-      color: cmsConfig?.buttonTextColor || '#fff',
-      fontSize: '16px',
-      fontWeight: 'bold',
-    },
-    footer: {
-      display: 'flex',
-      justifyContent: 'center',
-      marginTop: '20px',
-    },
-    registerText: {
-      color: '#E50914',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-    },
-    skipText: {
-      color: '#E50914',
-      textAlign: 'center',
-      marginTop: '20px',
-      cursor: 'pointer',
-    },
-    errorText: {
-      color: '#ff4444',
-      textAlign: 'center',
-      marginBottom: '15px',
-    },
+  const containerStyle = {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    backgroundImage: `url(${cmsConfig?.backgroundImage || '/bgHome1.png'})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    position: 'relative',
+  };
+
+  const overlayStyle = {
+    position: 'absolute',
+    inset: 0,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  };
+
+  const cardStyle = {
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor: cmsConfig?.cardBackgroundColor || 'rgba(0,0,0,0.75)',
+    padding: '28px',
+    borderRadius: '24px',
+    width: '100%',
+    maxWidth: '420px',
+  };
+
+  const inputWrap = {
+    display: 'flex',
+    alignItems: 'center',
+    border: `1px solid ${cmsConfig?.inputBorderColor || '#E50914'}`,
+    borderRadius: '12px',
+    padding: '12px 14px',
+    marginBottom: 14,
+    backgroundColor: 'rgba(255,255,255,0.05)',
+  };
+
+  const inputStyle = {
+    flex: 1,
+    color: '#fff',
+    border: 'none',
+    background: 'transparent',
+    outline: 'none',
+    fontSize: 14,
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <img 
-          src={cmsConfig?.logoImage || 'https://via.placeholder.com/120'} 
-          alt="Logo" 
-          style={styles.logo} 
+    <div style={containerStyle}>
+      <div style={overlayStyle} />
+
+      <div style={cardStyle}>
+        <img
+          src={cmsConfig?.logoImage || 'https://via.placeholder.com/120'}
+          alt="Logo"
+          style={{ width: 120, height: 120, objectFit: 'contain', display: 'block', margin: '0 auto 12px' }}
         />
 
-        <h1 style={styles.title}>{cmsConfig?.title || 'Welcome Back'}</h1>
-        <p style={styles.subtitle}>{cmsConfig?.subtitle || 'Login to continue'}</p>
+        <h1 style={{ color: '#fff', textAlign: 'center', margin: '0 0 6px', fontSize: 26 }}>
+          {cmsConfig?.title || 'Welcome Back'}
+        </h1>
 
-        <div style={styles.inputContainer}>
-          <span style={styles.inputIcon}>👤</span>
+        <p style={{ color: '#ccc', textAlign: 'center', margin: '0 0 20px', fontSize: 14 }}>
+          {cmsConfig?.subtitle || 'Login to continue'}
+        </p>
+
+        <div style={inputWrap}>
+          <span style={{ color: '#E50914', marginRight: 8 }}>👤</span>
           <input
-            type="text"
-            style={styles.input}
+            style={inputStyle}
             placeholder="Email or Phone"
-            placeholderTextColor="#aaa"
             value={identity}
             onChange={(e) => setIdentity(e.target.value)}
           />
         </div>
 
-        <div style={styles.inputContainer}>
-          <span style={styles.inputIcon}>🔒</span>
+        <div style={inputWrap}>
+          <span style={{ color: '#E50914', marginRight: 8 }}>🔒</span>
           <input
+            style={inputStyle}
             type="password"
-            style={styles.input}
             placeholder="Password"
-            placeholderTextColor="#aaa"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <button 
-          style={styles.button} 
+        <button
+          style={{
+            width: '100%',
+            padding: '13px',
+            borderRadius: 30,
+            border: 'none',
+            backgroundColor: cmsConfig?.buttonColor || '#E50914',
+            color: cmsConfig?.buttonTextColor || '#fff',
+            fontWeight: 'bold',
+            cursor: loading ? 'not-allowed' : 'pointer',
+            opacity: loading ? 0.7 : 1,
+          }}
           onClick={handleLogin}
           disabled={loading}
         >
-          <span style={styles.buttonText}>
-            {loading ? 'Logging in...' : 'Login'}
-          </span>
+          {loading ? 'Logging in...' : 'Login'}
         </button>
 
-        <div style={styles.footer}>
-          <span style={{ color: '#ccc' }}>Don't have an account? </span>
-          <Link to="/register" style={styles.registerText}>Register</Link>
+        <div style={{ marginTop: 18, textAlign: 'center', color: '#ccc', fontSize: 14 }}>
+          Don't have an account?{' '}
+          <Link to="/register" style={{ color: '#E50914', fontWeight: 700, textDecoration: 'none' }}>
+            Register
+          </Link>
         </div>
 
         {cmsConfig?.skipEnabled && (
-          <p style={styles.skipText} onClick={() => navigate('/')}>
+          <button
+            onClick={() => navigate('/')}
+            style={{
+              marginTop: 14,
+              width: '100%',
+              border: 'none',
+              background: 'transparent',
+              color: '#E50914',
+              cursor: 'pointer',
+            }}
+          >
             Skip
-          </p>
+          </button>
         )}
       </div>
     </div>
@@ -175,4 +149,3 @@ const LoginComponent = ({ cmsConfig = {} }) => {
 };
 
 export default LoginComponent;
-

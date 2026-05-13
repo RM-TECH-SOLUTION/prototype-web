@@ -11,6 +11,7 @@ const orderingStore = create((set, get) => ({
   catalogModels: [],
   catalogItems: [],
   selectedCatalogId: null,
+  mainCatalogues: [],
 
   // Cart
   cartItems: [],
@@ -18,6 +19,11 @@ const orderingStore = create((set, get) => ({
   loyaltySettings: null,
   couponCodeResponse: null,
   orderHistoryResponse: null,
+
+  /* ================= CLEAR CATALOG SELECTION ================= */
+  clearCatalog: () => {
+    set({ selectedCatalogId: null, catalogItems: [] });
+  },
 
   /* ================= GET CATALOG MODELS ================= */
   getCatalogModels: async () => {
@@ -39,6 +45,21 @@ const orderingStore = create((set, get) => ({
       set({ errorMessage: err.message });
     } finally {
       set({ loading: false });
+    }
+  },
+
+  /* ================= GET MAIN CATALOGUES ================= */
+  getMainCatalogues: async () => {
+    try {
+      const res = await apiClient.get(apiClient.Urls.getMainCatalogues);
+      if (res?.success) {
+        set({ mainCatalogues: res.data || [] });
+      } else {
+        set({ mainCatalogues: [] });
+      }
+    } catch (err) {
+      console.log("getMainCatalogues error", err);
+      set({ mainCatalogues: [] });
     }
   },
 

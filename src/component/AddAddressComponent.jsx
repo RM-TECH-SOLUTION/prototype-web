@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import useAuthStore from '../store/useAuthStore';
 
-const AddAddressComponent = ({ onSave, uiConfig = {} }) => {
+const AddAddressComponent = ({ onSave, uiConfig = {}, getProfile }) => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { saveUserAddress } = useAuthStore();
 
   const SERVICEABLE_PINCODES = uiConfig?.serviceablePincodes
     ? uiConfig.serviceablePincodes.split(',').map(p => p.trim())
@@ -54,7 +52,7 @@ const AddAddressComponent = ({ onSave, uiConfig = {} }) => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const { building, doorNo, street, city, state, pincode } = address;
 
     if (!building || !doorNo || !street || !city || !state || !pincode) {
@@ -67,8 +65,13 @@ const AddAddressComponent = ({ onSave, uiConfig = {} }) => {
       return;
     }
 
-    saveUserAddress(address);
-    onSave && onSave(address);
+    if (onSave) {
+      await onSave(address);
+    }
+
+    if (getProfile) {
+      await getProfile();
+    }
 
     setAddress({
       building: '',
@@ -221,7 +224,15 @@ const AddAddressComponent = ({ onSave, uiConfig = {} }) => {
           <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <div style={styles.header}>
               <h2 style={styles.title}>Add Address</h2>
-              <button style={styles.closeBtn} onClick={() => setShowModal(false)}>
+              <button
+                style={styles.closeBtn}
+                onClick={async () => {
+                  if (getProfile) {
+                    await getProfile();
+                  }
+                  setShowModal(false);
+                }}
+              >
                 ✕
               </button>
             </div>

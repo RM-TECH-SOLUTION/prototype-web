@@ -1,7 +1,17 @@
 import React, { useMemo } from "react";
+import useSessionStore from "../store/useSessionStore";
 import "./GreetingComponent.css";
 
 const GreetingComponent = ({ greetingConfig = {} }) => {
+  const { user, profileData } = useSessionStore();
+
+  const displayName =
+    profileData?.name ||
+    user?.name ||
+    profileData?.full_name ||
+    user?.full_name ||
+    "";
+
   const { message, description } = useMemo(() => {
     const hour = new Date().getHours();
 
@@ -34,7 +44,9 @@ const GreetingComponent = ({ greetingConfig = {} }) => {
 
   return (
     <div className="greeting-container">
-      <h3 className="greeting-text">{message}</h3>
+      <h3 className="greeting-text">
+        {displayName ? `${message}, ${displayName}` : message}
+      </h3>
       {description && <p className="sub-text">{description}</p>}
     </div>
   );

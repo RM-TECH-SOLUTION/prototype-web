@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginComponent from '../component/LoginComponent';
 import useCmsStore from '../store/useCmsStore';
+import useSessionStore from '../store/useSessionStore';
 
 // Robust normalization helper
 const extractValue = (value) => {
@@ -25,6 +27,14 @@ const extractValue = (value) => {
 
 const LoginContainer = () => {
   const { cmsData } = useCmsStore();
+  const { isLoggedIn } = useSessionStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
   
   // Extract login config from CMS data
   let cmsConfig = {};

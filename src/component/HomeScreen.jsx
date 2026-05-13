@@ -1,7 +1,51 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GreetingComponent from "./GreetingComponent";
 import "./HomeScreen.css";
+
+/* Mirrors the app's REDIRECT_ROUTE_MAP — maps CMS inAppPathRedirect values
+   (which can be app screen names OR web-style paths) to valid web routes. */
+const WEB_ROUTE_MAP = {
+  // Web paths passed through as-is
+  "/": "/",
+  "/home": "/",
+  "/categories": "/categories",
+  "/category": "/categories",
+  "/checkout": "/checkout",
+  "/account": "/account",
+  "/saved-address": "/account/saved-address",
+  "/order-history": "/order-history",
+  "/merchant-info": "/help",
+  "/help": "/help",
+  // App screen-name variants (exact case used in CMS)
+  Home: "/",
+  home: "/",
+  Order: "/categories",
+  order: "/categories",
+  Categories: "/categories",
+  categories: "/categories",
+  Account: "/account",
+  account: "/account",
+  Checkout: "/checkout",
+  checkout: "/checkout",
+  Register: "/register",
+  register: "/register",
+  Auth: "/login",
+  auth: "/login",
+  Login: "/login",
+  login: "/login",
+  SavedAddressComponent: "/account/saved-address",
+  OrderHistoryContainer: "/order-history",
+  MerchantInfoContainer: "/help",
+  Help: "/help",
+  help: "/help",
+};
+
+const resolveWebPath = (target) => {
+  if (!target || typeof target !== "string") return "/";
+  const t = target.trim();
+  return WEB_ROUTE_MAP[t] || WEB_ROUTE_MAP[t.toLowerCase()] || t;
+};
 
 const HomeScreen = ({
   uiConfig = {},
@@ -11,6 +55,7 @@ const HomeScreen = ({
 }) => {
   const sliderRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
   const width = window.innerWidth;
 
   /* AUTO HERO SLIDER */
@@ -72,7 +117,7 @@ const HomeScreen = ({
                   )}
                   {item.linkText && (
                     <Link
-                      to={item.inAppPathRedirect || "/"}
+                      to={resolveWebPath(item.inAppPathRedirect)}
                       className="hero-button"
                     >
                       {item.linkText}
@@ -103,7 +148,7 @@ const HomeScreen = ({
             {homeSlider.map((item, index) => (
               <Link
                 key={index}
-                to={item.inAppPathRedirect || "/"}
+                to={resolveWebPath(item.inAppPathRedirect)}
                 className="cta-card"
               >
                 <img src={item.image} alt={item.title} className="cta-image" />
