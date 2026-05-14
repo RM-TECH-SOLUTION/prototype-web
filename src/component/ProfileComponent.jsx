@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileComponent = ({ user = null, profileData = null, uiConfig = {} }) => {
+  const navigate = useNavigate();
   const userData = user || profileData;
 
   const styles = {
@@ -114,15 +116,14 @@ const ProfileComponent = ({ user = null, profileData = null, uiConfig = {} }) =>
         <div style={{ fontSize: '48px', marginBottom: '12px' }}>👤</div>
         <h2 style={styles.guestTitle}>Hey Guest 👋</h2>
         <p style={styles.guestSub}>Login to manage your account</p>
-        <a href="/login">
-          <button
-            style={styles.loginBtn}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = '#d40710')}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = uiConfig?.primaryColor || '#E50914')}
-          >
-            Login Now
-          </button>
-        </a>
+        <button
+          style={styles.loginBtn}
+          onClick={() => navigate('/login')}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = '#d40710')}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = uiConfig?.primaryColor || '#E50914')}
+        >
+          Login Now
+        </button>
       </div>
     );
   }
