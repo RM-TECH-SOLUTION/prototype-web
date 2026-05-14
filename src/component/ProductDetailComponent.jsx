@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import orderingStore from '../store/orderingStore';
+import useSessionStore from '../store/useSessionStore';
 import './ProductDetailComponent.css';
 
 const ProductDetailComponent = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { catalogItems, cartItems, addToCart, updateQty, deleteCartItem, getCart } = orderingStore();
+  const { isLoggedIn } = useSessionStore();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login', { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
 
   // Find product from catalogItems
   const product = catalogItems.find(item => item.id === parseInt(productId));

@@ -151,6 +151,14 @@ const CategoryListComponent = () => {
     setIsUpdating(false);
   };
 
+  const handleProductClick = (itemId) => {
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+    navigate(`/product/${itemId}`);
+  };
+
   const totalItems = cartItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
   const totalPrice = cartItems.reduce((sum, item) => sum + Number(item.total || 0), 0).toFixed(2);
 
@@ -236,13 +244,24 @@ const CategoryListComponent = () => {
             const qty = getQty(item.id);
             return (
               <div key={item.id} className="item-card">
-                <Link to={`/product/${item.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <div
+                  style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleProductClick(item.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleProductClick(item.id);
+                    }
+                  }}
+                >
                   <div className="item-image-container">
                     <img src={getImage(item)} alt={item.name} className="item-image" />
                   </div>
                   <h4 className="item-name">{item.name}</h4>
                   <p className="price">&#8377;{item.price}</p>
-                </Link>
+                </div>
                 {qty === 0 ? (
                   <button className="add-btn" onClick={() => handleAdd(item)} disabled={isUpdating}>
                     ADD
