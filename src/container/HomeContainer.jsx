@@ -81,6 +81,13 @@ const HomeContainer = () => {
   const [uiConfig, setUiConfig] = useState({});
   const [homeBanner, setHomeBanner] = useState([]);
   const [homeSlider, setHomeSlider] = useState([]);
+  const [homeSliderConfig, setHomeSliderConfig] = useState({});
+  const [offersConfig, setOffersConfig] = useState([]);
+  const [merchantInfo, setMerchantInfo] = useState({});
+  const [exploreCategories, setExploreCategories] = useState([]);
+  const [socialPages, setSocialPages] = useState([]);
+  const [themeColors, setThemeColors] = useState({});
+  const [newArrivals, setNewArrivals] = useState([]);
   const [greetingConfig, setGreetingConfig] = useState({});
 
   useEffect(() => {
@@ -116,6 +123,38 @@ const HomeContainer = () => {
           console.log("✅ Home Slider:", item.cms);
           break;
 
+        case "homeCtaCardsConfiguration":
+        case "homeCtaCardsConfig":
+          setHomeSliderConfig(normalizeCmsFields(item.cms));
+          console.log("✅ Home Slider Config:", item.cms);
+          break;
+
+        case "homeSectionOffers":
+          setOffersConfig(normalizeCmsFields(item.cms));
+          console.log("✅ Home Offers:", item.cms);
+          break;
+
+        case "HomeExploreCategories":
+        case "homeExploreCategories":
+          setExploreCategories(normalizeCmsFields(item.cms));
+          console.log("✅ Explore Categories:", item.cms);
+          break;
+
+        case "socialPages":
+          setSocialPages(normalizeCmsFields(item.cms));
+          console.log("✅ Social Pages:", item.cms);
+          break;
+
+        case "themeColors":
+          setThemeColors(normalizeCmsFields(item.cms));
+          console.log("✅ Theme Colors:", item.cms);
+          break;
+
+        case "merchantInfo":
+          setMerchantInfo(normalizeCmsFields(item.cms));
+          console.log("✅ Merchant Info:", item.cms);
+          break;
+
         case "appWelcomeMessage":
           setGreetingConfig(normalizeCmsFields(item.cms));
           console.log("✅ Greeting Config:", item.cms);
@@ -134,6 +173,13 @@ const HomeContainer = () => {
           uiConfig={uiConfig}
           homeBanner={homeBanner}
           homeSlider={homeSlider}
+          homeSliderConfig={homeSliderConfig}
+          offersConfig={offersConfig}
+          merchantInfo={merchantInfo}
+          exploreCategories={exploreCategories}
+          socialPages={socialPages}
+          themeColors={themeColors}
+          newArrivals={newArrivals}
           greetingConfig={greetingConfig}
         />
       );
@@ -152,6 +198,13 @@ const HomeContainer = () => {
         uiConfig={uiConfig}
         homeBanner={homeBanner}
         homeSlider={homeSlider}
+        homeSliderConfig={homeSliderConfig}
+        offersConfig={offersConfig}
+        merchantInfo={merchantInfo}
+        exploreCategories={exploreCategories}
+        socialPages={socialPages}
+        themeColors={themeColors}
+        newArrivals={newArrivals}
         greetingConfig={greetingConfig}
       />
     );

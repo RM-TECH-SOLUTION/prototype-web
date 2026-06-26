@@ -1,0 +1,1895 @@
+﻿[
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "accountPageConfiguration",
+        "modelName":  "Account Page Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "gradientStart":  {
+                                          "fieldName":  "Page Gradient Start",
+                                          "fieldKey":  "gradientStart",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#0f0f0f"
+                                      },
+                    "gradientEnd":  {
+                                        "fieldName":  "Page Gradient End",
+                                        "fieldKey":  "gradientEnd",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#1a1a1a"
+                                    },
+                    "cardBgColor":  {
+                                        "fieldName":  "Card Background Color",
+                                        "fieldKey":  "cardBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#1c1c1c"
+                                    },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                    "cardIconColor":  {
+                                          "fieldName":  "Card Icon Color",
+                                          "fieldKey":  "cardIconColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#e50914"
+                                      },
+                    "chevronColor":  {
+                                         "fieldName":  "Chevron Icon Color",
+                                         "fieldKey":  "chevronColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#888888"
+                                     },
+                    "cardBorderColor":  {
+                                            "fieldName":  "Card Border Color",
+                                            "fieldKey":  "cardBorderColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#2a2a2a"
+                                        },
+                    "shadowColor":  {
+                                        "fieldName":  "Shadow Color",
+                                        "fieldKey":  "shadowColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#000000"
+                                    },
+                    "sectionTitleColor":  {
+                                              "fieldName":  "Section Title Color",
+                                              "fieldKey":  "sectionTitleColor",
+                                              "fieldType":  "color",
+                                              "fieldValue":  "#e50914"
+                                          }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "addressPageConfiguration",
+        "modelName":  "Address Page Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "primaryColor":  {
+                                         "fieldName":  "Primary Color",
+                                         "fieldKey":  "primaryColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#e50914"
+                                     },
+                    "pageBgColor":  {
+                                        "fieldName":  "Page Background Color",
+                                        "fieldKey":  "pageBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#0f0f0f"
+                                    },
+                    "modalBgColor":  {
+                                         "fieldName":  "Modal Background Color",
+                                         "fieldKey":  "modalBgColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#1a1a1a"
+                                     },
+                    "inputBgColor":  {
+                                         "fieldName":  "Input Background Color",
+                                         "fieldKey":  "inputBgColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#1c1c1c"
+                                     },
+                    "inputBorderColor":  {
+                                             "fieldName":  "Input Border Color",
+                                             "fieldKey":  "inputBorderColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#333333"
+                                         },
+                    "inputTextColor":  {
+                                           "fieldName":  "Input Text Color",
+                                           "fieldKey":  "inputTextColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#ffffff"
+                                       },
+                    "buttonBgColor":  {
+                                          "fieldName":  "Button Background Color",
+                                          "fieldKey":  "buttonBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#e50914"
+                                      },
+                    "buttonTextColor":  {
+                                            "fieldName":  "Button Text Color",
+                                            "fieldKey":  "buttonTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "locationBorderColor":  {
+                                                "fieldName":  "Live Location Border Color",
+                                                "fieldKey":  "locationBorderColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#e50914"
+                                            },
+                    "headingColor":  {
+                                         "fieldName":  "Heading Text Color",
+                                         "fieldKey":  "headingColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#ffffff"
+                                     },
+                    "serviceablePincodes":  {
+                                                "fieldName":  "Serviceable Pincodes (Comma Separated)",
+                                                "fieldKey":  "serviceablePincodes",
+                                                "fieldType":  "string",
+                                                "fieldValue":  ""
+                                            },
+                    "addAddressText":  {
+                                           "fieldName":  "Add Address Button Text",
+                                           "fieldKey":  "addAddressText",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "+ Add Delivery Address"
+                                       },
+                    "saveButtonText":  {
+                                           "fieldName":  "Save Button Text",
+                                           "fieldKey":  "saveButtonText",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "Save Address"
+                                       },
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Background Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#000000"
+                                      },
+                    "cardBgColor":  {
+                                        "fieldName":  "Card background Color",
+                                        "fieldKey":  "cardBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#474747"
+                                    },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "appWelcomeMessage",
+        "modelName":  "App Welcome Message",
+        "singletonModel":  0,
+        "cms":  {
+                    "morningMessage":  {
+                                           "fieldName":  "Morning Message",
+                                           "fieldKey":  "morningMessage",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "Good Morning ☀️"
+                                       },
+                    "morningMessageDescription":  {
+                                                      "fieldName":  "Morning Message Description",
+                                                      "fieldKey":  "morningMessageDescription",
+                                                      "fieldType":  "string",
+                                                      "fieldValue":  "Start your day with the latest smartphone deals!"
+                                                  },
+                    "afternoonMessage":  {
+                                             "fieldName":  "Afternoon Message",
+                                             "fieldKey":  "afternoonMessage",
+                                             "fieldType":  "string",
+                                             "fieldValue":  "Good Afternoon 🔥"
+                                         },
+                    "afternoonMessageDescription":  {
+                                                        "fieldName":  "Afternoon Message Description",
+                                                        "fieldKey":  "afternoonMessageDescription",
+                                                        "fieldType":  "string",
+                                                        "fieldValue":  "Upgrade your phone today at the best prices."
+                                                    },
+                    "eveningMessage":  {
+                                           "fieldName":  "Evening Message",
+                                           "fieldKey":  "eveningMessage",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "Good Evening 🌆"
+                                       },
+                    "eveningMessageDescription":  {
+                                                      "fieldName":  "Evening Message Description",
+                                                      "fieldKey":  "eveningMessageDescription",
+                                                      "fieldType":  "string",
+                                                      "fieldValue":  "Perfect time to grab amazing mobile offers."
+                                                  },
+                    "nightMessage":  {
+                                         "fieldName":  "night Message",
+                                         "fieldKey":  "nightMessage",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Good Night 🌙"
+                                     },
+                    "nightMessageDescription":  {
+                                                    "fieldName":  "night Message Description",
+                                                    "fieldKey":  "nightMessageDescription",
+                                                    "fieldType":  "string",
+                                                    "fieldValue":  "Explore tomorrow’s technology today at ZZZ Mobiles."
+                                                }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "billLogo",
+        "modelName":  "Bill Logo",
+        "singletonModel":  0,
+        "cms":  {
+                    "logo":  {
+                                 "fieldName":  "Logo",
+                                 "fieldKey":  "logo",
+                                 "fieldType":  "image",
+                                 "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1773252371_cms_69b1af1371a1a.png"
+                             },
+                    "merchantName":  {
+                                         "fieldName":  "Merchant Name",
+                                         "fieldKey":  "merchantName",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "ZZZ Mobiles"
+                                     }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "categoryPageConfiguration",
+        "modelName":  "Category Page Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "pageBgColor":  {
+                                        "fieldName":  "Page Background Color",
+                                        "fieldKey":  "pageBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#0f0f0f"
+                                    },
+                    "primaryColor":  {
+                                         "fieldName":  "Primary Brand Color",
+                                         "fieldKey":  "primaryColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#e50914"
+                                     },
+                    "headerTitle":  {
+                                        "fieldName":  "Header Title",
+                                        "fieldKey":  "headerTitle",
+                                        "fieldType":  "string",
+                                        "fieldValue":  "Smartphone Catalog"
+                                    },
+                    "headerTitleColor":  {
+                                             "fieldName":  "Header Title Color",
+                                             "fieldKey":  "headerTitleColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#e50914"
+                                         },
+                    "cardBgColor":  {
+                                        "fieldName":  "Card Background Colo",
+                                        "fieldKey":  "cardBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#1a1a1a"
+                                    },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                    "priceColor":  {
+                                       "fieldName":  "Price Text Color",
+                                       "fieldKey":  "priceColor",
+                                       "fieldType":  "color",
+                                       "fieldValue":  "#aaaaaa"
+                                   },
+                    "buttonColor":  {
+                                        "fieldName":  "Add Button Color",
+                                        "fieldKey":  "buttonColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#e50914"
+                                    },
+                    "buttonTextColor":  {
+                                            "fieldName":  "Add Button Text Color",
+                                            "fieldKey":  "buttonTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "qtyBgColor":  {
+                                       "fieldName":  "Quantity Button Background",
+                                       "fieldKey":  "qtyBgColor",
+                                       "fieldType":  "color",
+                                       "fieldValue":  "#e50914"
+                                   },
+                    "cartBarColor":  {
+                                         "fieldName":  "Cart Bar Background",
+                                         "fieldKey":  "cartBarColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#111111"
+                                     },
+                    "cartTextColor":  {
+                                          "fieldName":  "Cart Text Color",
+                                          "fieldKey":  "cartTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#e50914"
+                                      },
+                    "modalBgColor":  {
+                                         "fieldName":  "Modal Background Color",
+                                         "fieldKey":  "modalBgColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#1a1a1a"
+                                     },
+                    "modalTitleColor":  {
+                                            "fieldName":  "Modal Title Color",
+                                            "fieldKey":  "modalTitleColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "enableFloatingCart":  {
+                                               "fieldName":  "Enable Floating Cart",
+                                               "fieldKey":  "enableFloatingCart",
+                                               "fieldType":  "boolean",
+                                               "fieldValue":  "true"
+                                           },
+                    "gridColumns":  {
+                                        "fieldName":  "Grid Columns",
+                                        "fieldKey":  "gridColumns",
+                                        "fieldType":  "number",
+                                        "fieldValue":  "2"
+                                    }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "checkoutPageConfiguration",
+        "modelName":  "Checkout Page Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "pageBgColor":  {
+                                        "fieldName":  "Page Background Color",
+                                        "fieldKey":  "pageBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#1f1919"
+                                    },
+                    "primaryColor":  {
+                                         "fieldName":  "Primary Color",
+                                         "fieldKey":  "primaryColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#e01b24"
+                                     },
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Background Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#000000"
+                                      },
+                    "headerTextColor":  {
+                                            "fieldName":  "Header Text Color",
+                                            "fieldKey":  "headerTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "cardBgColor":  {
+                                        "fieldName":  "Card Background Color",
+                                        "fieldKey":  "cardBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#383737"
+                                    },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                    "priceColor":  {
+                                       "fieldName":  "Price Color",
+                                       "fieldKey":  "priceColor",
+                                       "fieldType":  "color",
+                                       "fieldValue":  ""
+                                   },
+                    "qtyButtonColor":  {
+                                           "fieldName":  "Quantity Button Color",
+                                           "fieldKey":  "qtyButtonColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#ed333b"
+                                       },
+                    "qtyButtonTextColor":  {
+                                               "fieldName":  "Quantity Button Text Color",
+                                               "fieldKey":  "qtyButtonTextColor",
+                                               "fieldType":  "color",
+                                               "fieldValue":  ""
+                                           },
+                    "bottomBarColor":  {
+                                           "fieldName":  "Bottom Bar Background",
+                                           "fieldKey":  "bottomBarColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  ""
+                                       },
+                    "payButtonColor":  {
+                                           "fieldName":  "Pay Button Color",
+                                           "fieldKey":  "payButtonColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  ""
+                                       },
+                    "payButtonTextColor":  {
+                                               "fieldName":  "Pay Button Text Color",
+                                               "fieldKey":  "payButtonTextColor",
+                                               "fieldType":  "color",
+                                               "fieldValue":  ""
+                                           },
+                    "sheetBgColor":  {
+                                         "fieldName":  "Payment Sheet Background",
+                                         "fieldKey":  "sheetBgColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  ""
+                                     },
+                    "enableOnline":  {
+                                         "fieldName":  "Enable Online Payment",
+                                         "fieldKey":  "enableOnline",
+                                         "fieldType":  "boolean",
+                                         "fieldValue":  "true"
+                                     },
+                    "enableCOD":  {
+                                      "fieldName":  "Enable COD",
+                                      "fieldKey":  "enableCOD",
+                                      "fieldType":  "boolean",
+                                      "fieldValue":  "true"
+                                  }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "homeCtaCards",
+        "modelName":  "Home CTA Cards",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "image":  {
+                                      "fieldName":  "Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772269251_cms_69a2aec37b893.png"
+                                  },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Shop By Category"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Tomato • Potato • Onion • Leafy Greens"
+                                     },
+                        "linkText":  {
+                                         "fieldName":  "Button Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Browse"
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  "/categories"
+                                 },
+                        "identifier":  {
+                                           "fieldName":  "Identifier",
+                                           "fieldKey":  "identifier",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "shop_by_brand"
+                                       },
+                        "bgColor":  {
+                                        "fieldName":  "Content Background Color",
+                                        "fieldKey":  "bgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#212121"
+                                    },
+                        "buttonColor":  {
+                                            "fieldName":  "Button Color",
+                                            "fieldKey":  "buttonColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#e50914"
+                                        },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "borderColor":  {
+                                            "fieldName":  "Border Color",
+                                            "fieldKey":  "borderColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#eeeeee"
+                                        },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  "Order"
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  "mnm"
+                                           },
+                        "cardBgColor":  {
+                                            "fieldName":  "Card Bg Color",
+                                            "fieldKey":  "cardBgColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                        "cardTextColor":  {
+                                              "fieldName":  "Card Text Color",
+                                              "fieldKey":  "cardTextColor",
+                                              "fieldType":  "color",
+                                              "fieldValue":  "#111111"
+                                          }
+                    },
+                    {
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Today\u0027s Fresh Stock"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Fresh Stock Arrived Today"
+                                     },
+                        "linkText":  {
+                                         "fieldName":  "Button Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  ""
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  "/categories"
+                                 },
+                        "identifier":  {
+                                           "fieldName":  "Identifier",
+                                           "fieldKey":  "identifier",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "best_deals"
+                                       },
+                        "bgColor":  {
+                                        "fieldName":  "Content Background Color",
+                                        "fieldKey":  "bgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#212121"
+                                    },
+                        "buttonColor":  {
+                                            "fieldName":  "Button Color",
+                                            "fieldKey":  "buttonColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ff3b30"
+                                        },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "borderColor":  {
+                                            "fieldName":  "Border Color",
+                                            "fieldKey":  "borderColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffdada"
+                                        },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  ""
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  ""
+                                           },
+                        "cardBgColor":  {
+                                            "fieldName":  "Card Bg Color",
+                                            "fieldKey":  "cardBgColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                        "cardTextColor":  {
+                                              "fieldName":  "Card Text Color",
+                                              "fieldKey":  "cardTextColor",
+                                              "fieldType":  "color",
+                                              "fieldValue":  "#111111"
+                                          },
+                        "image":  {
+                                      "fieldName":  "Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772269251_cms_69a2aec3c4bad.png"
+                                  }
+                    },
+                    {
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Fast Home Delivery"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  ""
+                                     },
+                        "linkText":  {
+                                         "fieldName":  "Button Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  ""
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  "/categories"
+                                 },
+                        "identifier":  {
+                                           "fieldName":  "Identifier",
+                                           "fieldKey":  "identifier",
+                                           "fieldType":  "string",
+                                           "fieldValue":  "exchange_offer"
+                                       },
+                        "bgColor":  {
+                                        "fieldName":  "Content Background Color",
+                                        "fieldKey":  "bgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#212121"
+                                    },
+                        "buttonColor":  {
+                                            "fieldName":  "Button Color",
+                                            "fieldKey":  "buttonColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#28a745"
+                                        },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "borderColor":  {
+                                            "fieldName":  "Border Color",
+                                            "fieldKey":  "borderColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#d2f5e3"
+                                        },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  ""
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  ""
+                                           },
+                        "cardBgColor":  {
+                                            "fieldName":  "Card Bg Color",
+                                            "fieldKey":  "cardBgColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                        "cardTextColor":  {
+                                              "fieldName":  "Card Text Color",
+                                              "fieldKey":  "cardTextColor",
+                                              "fieldType":  "color",
+                                              "fieldValue":  "#111111"
+                                          },
+                        "image":  {
+                                      "fieldName":  "Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772269251_cms_69a2aec3d429a.png"
+                                  }
+                    }
+                ]
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "HomeExploreCategories",
+        "modelName":  "Home Explore Categories",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "background":  {
+                                           "fieldName":  "Background Color",
+                                           "fieldKey":  "background",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#ffffff"
+                                       },
+                        "backgroundImage":  {
+                                                "fieldName":  "Background Image",
+                                                "fieldKey":  "backgroundImage",
+                                                "fieldType":  "image",
+                                                "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1782466557_cms_6a3e47fd0cfbb.webp"
+                                            },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "OPPO Premium Collection"
+                                  },
+                        "discription":  {
+                                            "fieldName":  "Discription",
+                                            "fieldKey":  "discription",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Latest 5G Smartphones Available"
+                                        },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background Color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#000000"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "buttonTitle":  {
+                                            "fieldName":  "Button Title",
+                                            "fieldKey":  "buttonTitle",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Start at 12999/-"
+                                        },
+                        "buttonLink":  {
+                                           "fieldName":  "Button Link",
+                                           "fieldKey":  "buttonLink",
+                                           "fieldType":  "text",
+                                           "fieldValue":  "/categories-{28}"
+                                       }
+                    },
+                    {
+                        "background":  {
+                                           "fieldName":  "Background Color",
+                                           "fieldKey":  "background",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#ffffff"
+                                       },
+                        "backgroundImage":  {
+                                                "fieldName":  "Background Image",
+                                                "fieldKey":  "backgroundImage",
+                                                "fieldType":  "image",
+                                                "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1782466557_cms_6a3e47fd218bc.jpg"
+                                            },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Smart Charging Hub"
+                                  },
+                        "discription":  {
+                                            "fieldName":  "Discription",
+                                            "fieldKey":  "discription",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Safe \u0026 Reliable Charging"
+                                        },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background Color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#ebbceb"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  ""
+                                            },
+                        "buttonTitle":  {
+                                            "fieldName":  "Button Title",
+                                            "fieldKey":  "buttonTitle",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Start at 299/-"
+                                        },
+                        "buttonLink":  {
+                                           "fieldName":  "Button Link",
+                                           "fieldKey":  "buttonLink",
+                                           "fieldType":  "text",
+                                           "fieldValue":  "/categories-{29}"
+                                       }
+                    }
+                ]
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "homeOrderingBanner",
+        "modelName":  "Home Ordering Banner",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "textColor":  {
+                                          "fieldName":  "Text Color",
+                                          "fieldKey":  "textColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                        "image":  {
+                                      "fieldName":  "Background Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1780262956_cms_6a1ca82c219e0.png"
+                                  },
+                        "video":  {
+                                      "fieldName":  "Background Video",
+                                      "fieldKey":  "video",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772259755_cms_69a289abbced1.png"
+                                  },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Upgrade to the Latest Smartphones"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "All Top Brands Available"
+                                     },
+                        "ctaSubTitle":  {
+                                            "fieldName":  "CTA Sub Title",
+                                            "fieldKey":  "ctaSubTitle",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "Easy EMI • Exchange Offers • Best Prices"
+                                        },
+                        "linkText":  {
+                                         "fieldName":  "Link Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Shop Now"
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  ""
+                                 },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  "/categories"
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  ""
+                                           },
+                        "gradientColor":  {
+                                              "fieldName":  "Gradient Color",
+                                              "fieldKey":  "gradientColor",
+                                              "fieldType":  "text",
+                                              "fieldValue":  "rgba(229,9,20,0.6)"
+                                          },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background Color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#fa0000"
+                                                  }
+                    },
+                    {
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "textColor":  {
+                                          "fieldName":  "Text Color",
+                                          "fieldKey":  "textColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "premium smartphones lineup dark background"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "All Top Brands Available"
+                                     },
+                        "ctaSubTitle":  {
+                                            "fieldName":  "CTA Sub Title",
+                                            "fieldKey":  "ctaSubTitle",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "Order"
+                                        },
+                        "linkText":  {
+                                         "fieldName":  "Link Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Shop Now"
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  ""
+                                 },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  "/categories"
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  ""
+                                           },
+                        "gradientColor":  {
+                                              "fieldName":  "Gradient Color",
+                                              "fieldKey":  "gradientColor",
+                                              "fieldType":  "text",
+                                              "fieldValue":  ""
+                                          },
+                        "image":  {
+                                      "fieldName":  "Background Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772262756_cms_69a295641f070.png"
+                                  },
+                        "video":  {
+                                      "fieldName":  "Background Video",
+                                      "fieldKey":  "video",
+                                      "fieldType":  "image",
+                                      "fieldValue":  ""
+                                  },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background Color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#ff0000"
+                                                  }
+                    },
+                    {
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background Color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#ff0000"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#ffffff"
+                                            },
+                        "textColor":  {
+                                          "fieldName":  "Text Color",
+                                          "fieldKey":  "textColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "modern mobile showroom interior with red lights"
+                                  },
+                        "subTitle":  {
+                                         "fieldName":  "Sub Title",
+                                         "fieldKey":  "subTitle",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "All Top Brands Available"
+                                     },
+                        "ctaSubTitle":  {
+                                            "fieldName":  "CTA Sub Title",
+                                            "fieldKey":  "ctaSubTitle",
+                                            "fieldType":  "string",
+                                            "fieldValue":  ""
+                                        },
+                        "linkText":  {
+                                         "fieldName":  "Link Text",
+                                         "fieldKey":  "linkText",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "Shop Now"
+                                     },
+                        "path":  {
+                                     "fieldName":  "Path",
+                                     "fieldKey":  "path",
+                                     "fieldType":  "string",
+                                     "fieldValue":  ""
+                                 },
+                        "inAppPathRedirect":  {
+                                                  "fieldName":  "In-App Path Redirect",
+                                                  "fieldKey":  "inAppPathRedirect",
+                                                  "fieldType":  "string",
+                                                  "fieldValue":  "/categories"
+                                              },
+                        "inAppPathTitle":  {
+                                               "fieldName":  "In-App Path Title",
+                                               "fieldKey":  "inAppPathTitle",
+                                               "fieldType":  "string",
+                                               "fieldValue":  ""
+                                           },
+                        "gradientColor":  {
+                                              "fieldName":  "Gradient Color",
+                                              "fieldKey":  "gradientColor",
+                                              "fieldType":  "text",
+                                              "fieldValue":  ""
+                                          },
+                        "image":  {
+                                      "fieldName":  "Background Image",
+                                      "fieldKey":  "image",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772262756_cms_69a2956471108.png"
+                                  },
+                        "video":  {
+                                      "fieldName":  "Background Video",
+                                      "fieldKey":  "video",
+                                      "fieldType":  "image",
+                                      "fieldValue":  ""
+                                  }
+                    }
+                ]
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "homeSectionOffers",
+        "modelName":  "Home Section Offers",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "backgroundColor":  {
+                                                "fieldName":  "Background Color",
+                                                "fieldKey":  "backgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#76dbf4"
+                                            },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Charger\u0027s"
+                                  },
+                        "discription":  {
+                                            "fieldName":  "Discription",
+                                            "fieldKey":  "discription",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Flat 20% off"
+                                        },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#000000"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#000000"
+                                            },
+                        "buttonTitle":  {
+                                            "fieldName":  "Button Title",
+                                            "fieldKey":  "buttonTitle",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Shop Now"
+                                        },
+                        "buttonLinks":  {
+                                            "fieldName":  "Button Links",
+                                            "fieldKey":  "buttonLinks",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "/categories-{40}"
+                                        }
+                    },
+                    {
+                        "backgroundColor":  {
+                                                "fieldName":  "Background Color",
+                                                "fieldKey":  "backgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#d679dc"
+                                            },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Refer and earn"
+                                  },
+                        "discription":  {
+                                            "fieldName":  "Discription",
+                                            "fieldKey":  "discription",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Get 100 points when you invite a friend or family"
+                                        },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#908e8e"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  ""
+                                            },
+                        "buttonTitle":  {
+                                            "fieldName":  "Button Title",
+                                            "fieldKey":  "buttonTitle",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Start referring"
+                                        },
+                        "buttonLinks":  {
+                                            "fieldName":  "Button Links",
+                                            "fieldKey":  "buttonLinks",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "/account"
+                                        }
+                    },
+                    {
+                        "backgroundColor":  {
+                                                "fieldName":  "Background Color",
+                                                "fieldKey":  "backgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#f9d8be"
+                                            },
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "text",
+                                      "fieldValue":  "Stay motivated!"
+                                  },
+                        "discription":  {
+                                            "fieldName":  "Discription",
+                                            "fieldKey":  "discription",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Redeem coupons when you reach your order goals.get started today!"
+                                        },
+                        "buttonBackgroundColor":  {
+                                                      "fieldName":  "Button Background color",
+                                                      "fieldKey":  "buttonBackgroundColor",
+                                                      "fieldType":  "color",
+                                                      "fieldValue":  "#343232"
+                                                  },
+                        "buttonTextColor":  {
+                                                "fieldName":  "Button Text Color",
+                                                "fieldKey":  "buttonTextColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#000000"
+                                            },
+                        "buttonTitle":  {
+                                            "fieldName":  "Button Title",
+                                            "fieldKey":  "buttonTitle",
+                                            "fieldType":  "text",
+                                            "fieldValue":  "Shop Now"
+                                        },
+                        "buttonLinks":  {
+                                            "fieldName":  "Button Links",
+                                            "fieldKey":  "buttonLinks",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "/categories"
+                                        }
+                    }
+                ]
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "homeUiConfiguration",
+        "modelName":  "Home UI Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Background Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  ""
+                                      },
+                    "headerLogo":  {
+                                       "fieldName":  "Header Logo",
+                                       "fieldKey":  "headerLogo",
+                                       "fieldType":  "image",
+                                       "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772270548_cms_69a2b3d4957b7.png"
+                                   },
+                    "headerIconColor":  {
+                                            "fieldName":  "Header Icon Color",
+                                            "fieldKey":  "headerIconColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#e50914"
+                                        },
+                    "tabBgColor":  {
+                                       "fieldName":  "Tab Background Color",
+                                       "fieldKey":  "tabBgColor",
+                                       "fieldType":  "color",
+                                       "fieldValue":  "#111111"
+                                   },
+                    "tabActiveColor":  {
+                                           "fieldName":  "Tab Active Color",
+                                           "fieldKey":  "tabActiveColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#e50914"
+                                       },
+                    "tabInactiveColor":  {
+                                             "fieldName":  "Tab Inactive Color",
+                                             "fieldKey":  "tabInactiveColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#888888"
+                                         },
+                    "homeBgColor":  {
+                                        "fieldName":  "Home Background Color",
+                                        "fieldKey":  "homeBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#0f0f0f"
+                                    }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "loginConfiguration",
+        "modelName":  "Login Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "backgroundImage":  {
+                                            "fieldName":  "Background Image",
+                                            "fieldKey":  "backgroundImage",
+                                            "fieldType":  "image",
+                                            "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1778680575_cms_6a0482ff80a7c.png"
+                                        },
+                    "logoImage":  {
+                                      "fieldName":  "Logo Image",
+                                      "fieldKey":  "logoImage",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772265086_cms_69a29e7ebf66f.png"
+                                  },
+                    "title":  {
+                                  "fieldName":  "Title",
+                                  "fieldKey":  "title",
+                                  "fieldType":  "string",
+                                  "fieldValue":  "Welcome Back"
+                              },
+                    "subtitle":  {
+                                     "fieldName":  "Subtitle",
+                                     "fieldKey":  "subtitle",
+                                     "fieldType":  "string",
+                                     "fieldValue":  "Login to explore the latest smartphones"
+                                 },
+                    "buttonColor":  {
+                                        "fieldName":  "Primary Button Color",
+                                        "fieldKey":  "buttonColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#e50914"
+                                    },
+                    "buttonTextColor":  {
+                                            "fieldName":  "Button Text Color",
+                                            "fieldKey":  "buttonTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "cardBackgroundColor":  {
+                                                "fieldName":  "Card Background Color",
+                                                "fieldKey":  "cardBackgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#000000"
+                                            },
+                    "inputBorderColor":  {
+                                             "fieldName":  "Input Border Color",
+                                             "fieldKey":  "inputBorderColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#e50914"
+                                         },
+                    "skipEnabled":  {
+                                        "fieldName":  "Skip Button Enabled",
+                                        "fieldKey":  "skipEnabled",
+                                        "fieldType":  "boolean",
+                                        "fieldValue":  "true"
+                                    }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "merchantInfo",
+        "modelName":  "Merchant Info",
+        "singletonModel":  0,
+        "cms":  {
+                    "backgroundColor":  {
+                                            "fieldName":  "Background Color",
+                                            "fieldKey":  "backgroundColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#1c1c1c"
+                                        },
+                    "cardBackgroundColor":  {
+                                                "fieldName":  "Card Background Color",
+                                                "fieldKey":  "cardBackgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#383737"
+                                            },
+                    "headingColor":  {
+                                         "fieldName":  "Heading Color",
+                                         "fieldKey":  "headingColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#ffffff"
+                                     },
+                    "subHeadingColor":  {
+                                            "fieldName":  "SubHeading Color",
+                                            "fieldKey":  "subHeadingColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#c0bfbc"
+                                        },
+                    "actionColor":  {
+                                        "fieldName":  "Action Color",
+                                        "fieldKey":  "actionColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#e01b24"
+                                    },
+                    "termsAndConditions":  {
+                                               "fieldName":  "Terms And Conditions",
+                                               "fieldKey":  "termsAndConditions",
+                                               "fieldType":  "text",
+                                               "fieldValue":  "1. Introduction\nWelcome to our platform. By accessing or using this application, you agree to be bound by these Terms and Conditions. These terms govern the use of the services provided by the merchant through this application.\n\n2. Orders\nAll orders placed through the application are subject to acceptance by the merchant. The merchant reserves the right to cancel or refuse any order for any reason including product availability, pricing errors, or suspected fraudulent activity.\n\n3. Pricing\nAll prices displayed in the application are determined by the merchant and may change without prior notice. Taxes and additional charges may apply where applicable.\n\n4. Payments\nPayments can be made using supported payment methods such as online payment gateways or Cash on Delivery (if available). The merchant is responsible for processing and confirming the order.\n\n5. Delivery\nDelivery timelines are estimates and may vary based on location, product availability, and logistics conditions. The merchant will make reasonable efforts to deliver the order within the expected timeframe.\n\n6. Cancellation \u0026 Refund\nOrders may be canceled according to the merchant’s cancellation policy. Refunds, if applicable, will be processed according to the merchant\u0027s refund policy.\n\n7. User Responsibilities\nUsers agree to provide accurate information while placing orders and must not misuse the application for unlawful purposes.\n\n8. Limitation of Liability\nThe merchant shall not be liable for any indirect, incidental, or consequential damages resulting from the use of the application or services.\n\n9. Changes to Terms\nThe merchant reserves the right to update or modify these terms at any time without prior notice."
+                                           },
+                    "privacyPolicy":  {
+                                          "fieldName":  "Privacy Policy",
+                                          "fieldKey":  "privacyPolicy",
+                                          "fieldType":  "text",
+                                          "fieldValue":  "1. Information We Collect\nWe may collect personal information such as:\nName\nPhone number\nEmail address\nDelivery address\nPayment details\nThis information is collected to process orders and improve user experience.\n\n2. How We Use Information\nThe collected information may be used for:\nProcessing orders\nCustomer support\nSending order updates\nImproving services\n\n3. Data Sharing\nWe do not sell or rent personal information. Data may only be shared with service providers such as payment gateways or delivery partners to fulfill orders.\n\n4. Data Security\nWe take reasonable measures to protect user information from unauthorized access, misuse, or disclosure.\n\n5. Cookies \u0026 Tracking\nThe application may use cookies or similar technologies to enhance user experience and analyze usage.\n\n6. User Rights\nUsers may request access, correction, or deletion of their personal information by contacting the merchant.\n\n7. Policy Updates\nThis Privacy Policy may be updated periodically. Continued use of the application constitutes acceptance of the updated policy.\n\n8. Contact Information\nFor any questions regarding this Privacy Policy, please contact:"
+                                      },
+                    "merchantName":  {
+                                         "fieldName":  "Merchant Name",
+                                         "fieldKey":  "merchantName",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "ZZZ Mobiles"
+                                     },
+                    "merchantPhoneNumber":  {
+                                                "fieldName":  "Merchant Phone Number",
+                                                "fieldKey":  "merchantPhoneNumber",
+                                                "fieldType":  "string",
+                                                "fieldValue":  "9866664416"
+                                            },
+                    "merchantLocation":  {
+                                             "fieldName":  "Merchant Location",
+                                             "fieldKey":  "merchantLocation",
+                                             "fieldType":  "string",
+                                             "fieldValue":  "https://maps.app.goo.gl/Yvfdrdts3kaBK2F5A"
+                                         },
+                    "appLink":  {
+                                    "fieldName":  "App Link",
+                                    "fieldKey":  "appLink",
+                                    "fieldType":  "string",
+                                    "fieldValue":  "https://play.google.com/store/apps/details?id=com.facebook.katana\u0026hl=en_IN"
+                                },
+                    "webLink":  {
+                                    "fieldName":  "Web Link",
+                                    "fieldKey":  "webLink",
+                                    "fieldType":  "string",
+                                    "fieldValue":  "https://www.facebook.com/"
+                                },
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Bg Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#000000"
+                                      },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "orderHistoryConfig",
+        "modelName":  "Order History Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "backgroundColor":  {
+                                            "fieldName":  "Background Color",
+                                            "fieldKey":  "backgroundColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#1c1c1c"
+                                        },
+                    "cardBackgroundColor":  {
+                                                "fieldName":  "Card Background Color",
+                                                "fieldKey":  "cardBackgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#383737"
+                                            },
+                    "progressBarColor":  {
+                                             "fieldName":  "Progress Bar Color",
+                                             "fieldKey":  "progressBarColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#c0bfbc"
+                                         },
+                    "progressBarFillColor":  {
+                                                 "fieldName":  "Progress Bar Fill Color",
+                                                 "fieldKey":  "progressBarFillColor",
+                                                 "fieldType":  "color",
+                                                 "fieldValue":  "#26a269"
+                                             },
+                    "cardTextTitleColor":  {
+                                               "fieldName":  "Card Text Title Color",
+                                               "fieldKey":  "cardTextTitleColor",
+                                               "fieldType":  "color",
+                                               "fieldValue":  "#ffffff"
+                                           },
+                    "cardTextSubTitleColor":  {
+                                                  "fieldName":  "Card Text Sub Title Color",
+                                                  "fieldKey":  "cardTextSubTitleColor",
+                                                  "fieldType":  "color",
+                                                  "fieldValue":  "#deddda"
+                                              },
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Background Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#000000"
+                                      },
+                    "headerTextColor":  {
+                                            "fieldName":  "Header Text Color",
+                                            "fieldKey":  "headerTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "registerConfiguration",
+        "modelName":  "Register Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "logoImage":  {
+                                      "fieldName":  "Logo Image",
+                                      "fieldKey":  "logoImage",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772267115_cms_69a2a66b1a4df.png"
+                                  },
+                    "title":  {
+                                  "fieldName":  "Title",
+                                  "fieldKey":  "title",
+                                  "fieldType":  "string",
+                                  "fieldValue":  "Create Your Account"
+                              },
+                    "subtitle":  {
+                                     "fieldName":  "Subtitle",
+                                     "fieldKey":  "subtitle",
+                                     "fieldType":  "string",
+                                     "fieldValue":  "Join ZZZ Mobiles \u0026 unlock exclusive deals"
+                                 },
+                    "buttonColor":  {
+                                        "fieldName":  "Primary Button Color",
+                                        "fieldKey":  "buttonColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#e50914"
+                                    },
+                    "buttonTextColor":  {
+                                            "fieldName":  "Button Text Color",
+                                            "fieldKey":  "buttonTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "cardBackgroundColor":  {
+                                                "fieldName":  "Card Background Color",
+                                                "fieldKey":  "cardBackgroundColor",
+                                                "fieldType":  "color",
+                                                "fieldValue":  "#0d0d0d"
+                                            },
+                    "inputBorderColor":  {
+                                             "fieldName":  "Input Border Color",
+                                             "fieldKey":  "inputBorderColor",
+                                             "fieldType":  "color",
+                                             "fieldValue":  "#e50914"
+                                         },
+                    "genderEnabled":  {
+                                          "fieldName":  "Enable Gender Field",
+                                          "fieldKey":  "genderEnabled",
+                                          "fieldType":  "boolean",
+                                          "fieldValue":  "true"
+                                      },
+                    "backgroundImage":  {
+                                            "fieldName":  "Background Image",
+                                            "fieldKey":  "backgroundImage",
+                                            "fieldType":  "image",
+                                            "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1778680593_cms_6a0483114cff2.png"
+                                        }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "savedAddressPageConfiguration",
+        "modelName":  "Saved Address Page Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "pageBgColor":  {
+                                        "fieldName":  "Page Background Color",
+                                        "fieldKey":  "pageBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#0f0f0f"
+                                    },
+                    "headerBgColor":  {
+                                          "fieldName":  "Header Background Color",
+                                          "fieldKey":  "headerBgColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#111111"
+                                      },
+                    "headerTextColor":  {
+                                            "fieldName":  "Header Text Color",
+                                            "fieldKey":  "headerTextColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#ffffff"
+                                        },
+                    "cardBgColor":  {
+                                        "fieldName":  "Card Background Color",
+                                        "fieldKey":  "cardBgColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#1c1c1c"
+                                    },
+                    "cardBorderColor":  {
+                                            "fieldName":  "Card Border Color",
+                                            "fieldKey":  "cardBorderColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#2a2a2a"
+                                        },
+                    "Primary Color":  {
+                                          "fieldName":  "Primary Color",
+                                          "fieldKey":  "Primary Color",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#e50914"
+                                      },
+                    "cardTitleColor":  {
+                                           "fieldName":  "Card Title Color",
+                                           "fieldKey":  "cardTitleColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#e50914"
+                                       },
+                    "cardTextColor":  {
+                                          "fieldName":  "Card Text Color",
+                                          "fieldKey":  "cardTextColor",
+                                          "fieldType":  "color",
+                                          "fieldValue":  "#ffffff"
+                                      },
+                    "emptyTextColor":  {
+                                           "fieldName":  "Empty Text Color",
+                                           "fieldKey":  "emptyTextColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#888888"
+                                       }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "socialPages",
+        "modelName":  "Social Pages",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "facebookLink":  {
+                                             "fieldName":  "Facebook Link",
+                                             "fieldKey":  "facebookLink",
+                                             "fieldType":  "string",
+                                             "fieldValue":  "https://www.facebook.com/"
+                                         },
+                        "instagramLink":  {
+                                              "fieldName":  "Instagram Link",
+                                              "fieldKey":  "instagramLink",
+                                              "fieldType":  "string",
+                                              "fieldValue":  "https://www.instagram.com/?hl=en"
+                                          },
+                        "youtubeLink":  {
+                                            "fieldName":  "YouTube Link",
+                                            "fieldKey":  "youtubeLink",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "https://www.youtube.com/"
+                                        }
+                    }
+                ]
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "splashConfiguration",
+        "modelName":  "Splash Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "backgroundImage":  {
+                                            "fieldName":  "Background Image",
+                                            "fieldKey":  "backgroundImage",
+                                            "fieldType":  "image",
+                                            "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1778791645_cms_6a0634ddc4eee.png"
+                                        },
+                    "logoImage":  {
+                                      "fieldName":  "Logo Image",
+                                      "fieldKey":  "logoImage",
+                                      "fieldType":  "image",
+                                      "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1778791646_cms_6a0634de1d5c9.png"
+                                  },
+                    "merchantName":  {
+                                         "fieldName":  "ZZZ Mobiles",
+                                         "fieldKey":  "merchantName",
+                                         "fieldType":  "string",
+                                         "fieldValue":  "ZZZ Mobiles"
+                                     },
+                    "merchantTitle":  {
+                                          "fieldName":  "MerchantTitle",
+                                          "fieldKey":  "merchantTitle",
+                                          "fieldType":  "string",
+                                          "fieldValue":  "ZZZ Mobiles World"
+                                      },
+                    "backgroundColor":  {
+                                            "fieldName":  "Background Color",
+                                            "fieldKey":  "backgroundColor",
+                                            "fieldType":  "color",
+                                            "fieldValue":  "#daaf37"
+                                        },
+                    "nextNavigationPath":  {
+                                               "fieldName":  "Next Navigation Path",
+                                               "fieldKey":  "nextNavigationPath",
+                                               "fieldType":  "string",
+                                               "fieldValue":  "/walkthrough"
+                                           },
+                    "nextNavigationPathHome":  {
+                                                   "fieldName":  "Next Navigation Path Home",
+                                                   "fieldKey":  "nextNavigationPathHome",
+                                                   "fieldType":  "string",
+                                                   "fieldValue":  "/home"
+                                               },
+                    "autoNavigateToNextPage":  {
+                                                   "fieldName":  "Auto Navigate to Next Page",
+                                                   "fieldKey":  "autoNavigateToNextPage",
+                                                   "fieldType":  "boolean",
+                                                   "fieldValue":  "true"
+                                               },
+                    "autoNavigationTimeout":  {
+                                                  "fieldName":  "Auto Navigate Timeout (in miliseconds)",
+                                                  "fieldKey":  "autoNavigationTimeout",
+                                                  "fieldType":  "number",
+                                                  "fieldValue":  "2500"
+                                              }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "themeColors",
+        "modelName":  "Theme Colors",
+        "singletonModel":  0,
+        "cms":  {
+                    "primaryColor":  {
+                                         "fieldName":  "Primary Color",
+                                         "fieldKey":  "primaryColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#e50914"
+                                     },
+                    "accentColor":  {
+                                        "fieldName":  "Accent Color",
+                                        "fieldKey":  "accentColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#ff3b30"
+                                    },
+                    "accentColor2":  {
+                                         "fieldName":  "Accent Color2",
+                                         "fieldKey":  "accentColor2",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#ff6b6b"
+                                     },
+                    "secondaryColor":  {
+                                           "fieldName":  "Secondary Color",
+                                           "fieldKey":  "secondaryColor",
+                                           "fieldType":  "color",
+                                           "fieldValue":  "#111111"
+                                       },
+                    "successColor":  {
+                                         "fieldName":  "Success Color",
+                                         "fieldKey":  "successColor",
+                                         "fieldType":  "color",
+                                         "fieldValue":  "#28a745"
+                                     },
+                    "dangerColor":  {
+                                        "fieldName":  "Danger Color",
+                                        "fieldKey":  "dangerColor",
+                                        "fieldType":  "color",
+                                        "fieldValue":  "#dc3545"
+                                    },
+                    "lightColor":  {
+                                       "fieldName":  "Text Color Light",
+                                       "fieldKey":  "lightColor",
+                                       "fieldType":  "color",
+                                       "fieldValue":  "#f8f8f8"
+                                   },
+                    "darkColor":  {
+                                      "fieldName":  "Text Color Dark",
+                                      "fieldKey":  "darkColor",
+                                      "fieldType":  "color",
+                                      "fieldValue":  "#222222"
+                                  },
+                    "appColor":  {
+                                     "fieldName":  "App Color",
+                                     "fieldKey":  "appColor",
+                                     "fieldType":  "color",
+                                     "fieldValue":  "#ffffff"
+                                 }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "walkthroughConfiguration",
+        "modelName":  "Walkthrough Configuration",
+        "singletonModel":  0,
+        "cms":  {
+                    "walkthroughButtonColor":  {
+                                                   "fieldName":  "Walkthrough Button Color",
+                                                   "fieldKey":  "walkthroughButtonColor",
+                                                   "fieldType":  "color",
+                                                   "fieldValue":  "#e50914"
+                                               },
+                    "walkthroughTitleColor":  {
+                                                  "fieldName":  "Walkthrough Title Color",
+                                                  "fieldKey":  "walkthroughTitleColor",
+                                                  "fieldType":  "color",
+                                                  "fieldValue":  "#ffffff"
+                                              },
+                    "walkthroughDescriptionColor":  {
+                                                        "fieldName":  "Walkthrough Description Color",
+                                                        "fieldKey":  "walkthroughDescriptionColor",
+                                                        "fieldType":  "color",
+                                                        "fieldValue":  "#555555"
+                                                    },
+                    "nextNavigationPath":  {
+                                               "fieldName":  "Next Navigation Path",
+                                               "fieldKey":  "nextNavigationPath",
+                                               "fieldType":  "string",
+                                               "fieldValue":  "/home"
+                                           },
+                    "IsWalkthroughSet":  {
+                                             "fieldName":  "Skip Walkthrough After Login",
+                                             "fieldKey":  "IsWalkthroughSet",
+                                             "fieldType":  "boolean",
+                                             "fieldValue":  "true"
+                                         },
+                    "walkthroughButtonTextColor":  {
+                                                       "fieldName":  "Walkthrough Button Text Color",
+                                                       "fieldKey":  "walkthroughButtonTextColor",
+                                                       "fieldType":  "color",
+                                                       "fieldValue":  "#ffffff"
+                                                   }
+                }
+    },
+    {
+        "success":  true,
+        "merchantId":  9,
+        "modelSlug":  "walkthroughSliders",
+        "modelName":  "Walkthrough Sliders",
+        "singletonModel":  1,
+        "cms":  [
+                    {
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "string",
+                                      "fieldValue":  "All Top Brands in One Place"
+                                  },
+                        "description":  {
+                                            "fieldName":  "Description",
+                                            "fieldKey":  "description",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "From Apple to Samsung, OnePlus to Vivo — explore the latest smartphones at unbeatable prices"
+                                        },
+                        "walkthroughImage":  {
+                                                 "fieldName":  "Walkthrough Image",
+                                                 "fieldKey":  "walkthroughImage",
+                                                 "fieldType":  "image",
+                                                 "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772262722_cms_69a29542bc49c.png"
+                                             },
+                        "walkthroughContantImage":  {
+                                                        "fieldName":  "walkthrough Contant Image",
+                                                        "fieldKey":  "walkthroughContantImage",
+                                                        "fieldType":  "image",
+                                                        "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772260953_cms_69a28e590ac84.png"
+                                                    }
+                    },
+                    {
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "string",
+                                      "fieldValue":  "Best Prices \u0026 Exchange Offers"
+                                  },
+                        "description":  {
+                                            "fieldName":  "Description",
+                                            "fieldKey":  "description",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "Grab exciting discounts, exchange offers, and easy EMI options."
+                                        },
+                        "walkthroughImage":  {
+                                                 "fieldName":  "Walkthrough Image",
+                                                 "fieldKey":  "walkthroughImage",
+                                                 "fieldType":  "image",
+                                                 "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772264485_cms_69a29c2576c5b.png"
+                                             },
+                        "walkthroughContantImage":  {
+                                                        "fieldName":  "walkthrough Contant Image",
+                                                        "fieldKey":  "walkthroughContantImage",
+                                                        "fieldType":  "image",
+                                                        "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772260955_cms_69a28e5bf068d.png"
+                                                    }
+                    },
+                    {
+                        "title":  {
+                                      "fieldName":  "Title",
+                                      "fieldKey":  "title",
+                                      "fieldType":  "string",
+                                      "fieldValue":  "Trusted by Thousands"
+                                  },
+                        "description":  {
+                                            "fieldName":  "Description",
+                                            "fieldKey":  "description",
+                                            "fieldType":  "string",
+                                            "fieldValue":  "100% genuine products with warranty and expert support at your service."
+                                        },
+                        "walkthroughImage":  {
+                                                 "fieldName":  "Walkthrough Image",
+                                                 "fieldKey":  "walkthroughImage",
+                                                 "fieldType":  "image",
+                                                 "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772262206_cms_69a2933e5f4ad.png"
+                                             },
+                        "walkthroughContantImage":  {
+                                                        "fieldName":  "walkthrough Contant Image",
+                                                        "fieldKey":  "walkthroughContantImage",
+                                                        "fieldType":  "image",
+                                                        "fieldValue":  "https://api.rmtechsolution.com/uploads/cms/merchantId_9/1772260958_cms_69a28e5e2edd4.png"
+                                                    }
+                    }
+                ]
+    }
+]
