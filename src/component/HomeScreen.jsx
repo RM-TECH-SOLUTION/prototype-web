@@ -73,6 +73,119 @@ const parseScreenshotList = (value) => {
     .filter(Boolean);
 };
 
+const normalizeSocialPages = (value) => {
+  const entries = toArray(value);
+  const cards = [];
+
+  entries.forEach((item) => {
+    if (!item || typeof item !== "object") return;
+
+    const directLink = pickField(item, ["link", "redirectPath", "path", "url"], "");
+    if (directLink) {
+      cards.push({
+        title: pickField(item, ["title", "name", "platform"], "Social"),
+        subTitle: pickField(item, ["subTitle", "description"], "Stay connected with our updates"),
+        link: directLink,
+      });
+    }
+
+    const knownSocials = [
+      ["facebookLink", "Facebook"],
+      ["instagramLink", "Instagram"],
+      ["youtubeLink", "YouTube"],
+      ["xLink", "X"],
+      ["twitterLink", "Twitter"],
+      ["whatsappLink", "WhatsApp"],
+    ];
+
+    knownSocials.forEach(([key, title]) => {
+      const link = pickField(item, [key], "");
+      if (link) {
+        cards.push({
+          title,
+          subTitle: "Stay connected with our updates",
+          link,
+        });
+      }
+    });
+  });
+
+  const deduped = [];
+  const seen = new Set();
+  cards.forEach((card) => {
+    const signature = `${card.title}|${card.link}`;
+    if (seen.has(signature)) return;
+    seen.add(signature);
+    deduped.push(card);
+  });
+
+  return deduped;
+};
+
+const detectSocialPlatform = (item) => {
+  const title = String(pickField(item, ["title", "name", "platform"], "")).toLowerCase();
+  const link = String(pickField(item, ["link", "redirectPath", "path", "url"], "")).toLowerCase();
+  const haystack = `${title} ${link}`;
+
+  if (haystack.includes("facebook") || haystack.includes("fb.com")) return "facebook";
+  if (haystack.includes("instagram") || haystack.includes("insta")) return "instagram";
+  if (haystack.includes("youtube") || haystack.includes("youtu.be")) return "youtube";
+  if (haystack.includes("whatsapp") || haystack.includes("wa.me")) return "whatsapp";
+  if (haystack.includes("twitter") || haystack.includes("x.com")) return "x";
+  if (haystack.trim() === "x" || haystack.includes(" x ")) return "x";
+
+  return "generic";
+};
+
+const renderSocialIcon = (platform) => {
+  const commonProps = {
+    className: "social-card-icon",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    focusable: "false",
+  };
+
+  switch (platform) {
+    case "facebook":
+      return (
+        <svg {...commonProps}>
+          <path d="M15 4h-2.2C9.9 4 8 5.8 8 8.6V11H6v3h2v6h3v-6h2.6l.4-3H11V8.9c0-.9.4-1.4 1.6-1.4H15V4z" />
+        </svg>
+      );
+    case "instagram":
+      return (
+        <svg {...commonProps}>
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm10.5 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+        </svg>
+      );
+    case "youtube":
+      return (
+        <svg {...commonProps}>
+          <path d="M21.6 7.2a2.9 2.9 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.9 2.9 0 0 0-2 2A30.3 30.3 0 0 0 2 12c0 1.6.1 3.2.4 4.8a2.9 2.9 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.9 2.9 0 0 0 2-2c.3-1.6.4-3.2.4-4.8 0-1.6-.1-3.2-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" />
+        </svg>
+      );
+    case "whatsapp":
+      return (
+        <svg {...commonProps}>
+          <path d="M12 2a10 10 0 0 0-8.8 14.7L2 22l5.4-1.2A10 10 0 1 0 12 2zm5.8 14.3c-.2.6-1.2 1.1-1.8 1.2-.5.1-1.2.2-3.8-.8-3.3-1.3-5.4-4.6-5.5-4.8-.2-.2-1.3-1.8-1.3-3.4s.9-2.4 1.2-2.7c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.8 2 .9 2.1.1.2.1.4 0 .6l-.3.5c-.1.2-.2.3-.4.5-.1.1-.3.3-.1.6.2.4.9 1.5 2 2.4 1.4 1.2 2.6 1.5 3 1.7.3.1.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.4.1.2.1 1.1-.1 1.7z" />
+        </svg>
+      );
+    case "x":
+      return (
+        <svg {...commonProps}>
+          <path d="M18.9 3H22l-6.8 7.8L23 21h-6.4l-5-6-5.2 6H3l7.3-8.4L1 3h6.5l4.5 5.4L18.9 3z" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...commonProps}>
+          <path d="M12 2a10 10 0 0 0-3.2 19.5c-.1-.8-.2-2 .1-2.9l1.2-5.3s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2.1-.8 3.2-.2.9.5 1.7 1.4 1.7 1.7 0 2.8-2.2 2.8-4.8 0-2-1.3-3.5-3.7-3.5-2.7 0-4.3 2-4.3 4.2 0 .8.2 1.3.5 1.8.1.2.1.3.1.5l-.2.8c-.1.3-.2.4-.5.3-1.3-.5-1.9-1.9-1.9-3.5 0-2.6 2.2-5.8 6.6-5.8 3.5 0 5.8 2.5 5.8 5.3 0 3.6-2 6.2-5 6.2-1 0-1.9-.5-2.2-1.1l-.6 2.3c-.2.9-.7 2.1-1.1 2.8A10 10 0 1 0 12 2z" />
+        </svg>
+      );
+  }
+};
+
 const getReadableTextColor = (background, dark = "#111827", light = "#ffffff") => {
   if (!background) return light;
 
@@ -247,7 +360,10 @@ const HomeScreen = ({
   const quickActions = toArray(homeSlider).length > 0 ? toArray(homeSlider) : fallbackQuickActions;
   const offers = toArray(offersConfig).length > 0 ? toArray(offersConfig) : fallbackOffers;
   const categories = toArray(exploreCategories).length > 0 ? toArray(exploreCategories) : fallbackCategories;
-  const socials = toArray(socialPages).length > 0 ? toArray(socialPages) : fallbackSocials;
+  const socials = useMemo(() => {
+    const normalized = normalizeSocialPages(socialPages);
+    return normalized.length > 0 ? normalized : fallbackSocials;
+  }, [socialPages]);
   const appPreviewImages = useMemo(() => {
     const parsed = parseScreenshotList(merchantInfo?.appScreenshots);
     if (parsed.length > 0) return parsed.map((img) => resolveImage(img));
@@ -286,8 +402,17 @@ const HomeScreen = ({
         inAppPathRedirect: pickField(item, ["inAppPathRedirect", "path"], "/categories"),
       }));
 
-  const playStoreLink = merchantInfo?.playstoreAppLink || "";
-  const appStoreLink = merchantInfo?.appstoreAppLink || "";
+  const playStoreLink = pickField(
+    merchantInfo,
+    ["playstoreAppLink", "playStoreAppLink", "androidAppLink", "playStoreLink", "appLink"],
+    ""
+  );
+  const appStoreLink = pickField(
+    merchantInfo,
+    ["appstoreAppLink", "appStoreAppLink", "iosAppLink", "appleAppLink", "appStoreLink"],
+    ""
+  );
+  const webLink = pickField(merchantInfo, ["webLink", "websiteLink", "website"], "");
 
   const downloadBackground =
     themeColors?.downloadAppSectionBackgroundColor ||
@@ -545,7 +670,12 @@ const HomeScreen = ({
                 Download on App Store
               </a>
             )}
-            {!playStoreLink && !appStoreLink && (
+            {!appStoreLink && webLink && (
+              <a href={webLink} target="_blank" rel="noreferrer" className="download-btn secondary">
+                Open Website
+              </a>
+            )}
+            {!playStoreLink && !appStoreLink && !webLink && (
               <Link to="/register" className="download-btn primary">
                 Open App Experience
               </Link>
@@ -570,24 +700,27 @@ const HomeScreen = ({
       {/* ================= SOCIAL ================= */}
       {socials.length > 0 && (
         <section className="home-section social-wrapper" style={{ background: socialBg }}>
-          <h3 className="section-title">Social Pages</h3>
+          <h3 className="section-title">Follow Our Social Pages</h3>
           <div className="home-social-grid">
-            {socials.map((item, index) => (
-              <a
-                key={item?.id || index}
-                href={pickField(item, ["link", "redirectPath", "path"], "#")}
-                target="_blank"
-                rel="noreferrer"
-                className="social-card"
-              >
-                <div className="social-card-head">
-                  <span className="social-card-logo">{pickField(item, ["title"], "S").slice(0, 1)}</span>
-                  <h4>{pickField(item, ["title", "name"], "Social")}</h4>
-                </div>
-                <p>{pickField(item, ["subTitle", "description"], "Stay connected with our updates")}</p>
-                <span className="social-card-cta">Open</span>
-              </a>
-            ))}
+            {socials.map((item, index) => {
+              const platform = detectSocialPlatform(item);
+              return (
+                <a
+                  key={item?.id || index}
+                  href={pickField(item, ["link", "redirectPath", "path"], "#")}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`social-card social-card-${platform}`}
+                >
+                  <div className="social-card-head">
+                    <span className="social-card-logo">{renderSocialIcon(platform)}</span>
+                    <h4>{pickField(item, ["title", "name"], "Social")}</h4>
+                  </div>
+                  <p>{pickField(item, ["subTitle", "description"], "Stay connected with our updates")}</p>
+                  <span className="social-card-cta">Open</span>
+                </a>
+              );
+            })}
           </div>
         </section>
       )}
