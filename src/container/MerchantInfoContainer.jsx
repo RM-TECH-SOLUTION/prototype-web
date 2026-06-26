@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useCmsStore from '../store/useCmsStore';
 
 const MerchantInfoContainer = () => {
   const { cmsData } = useCmsStore();
+  const navigate = useNavigate();
   const [uiConfig, setUiConfig] = useState({});
   const [activeTab, setActiveTab] = useState('info');
 
@@ -40,6 +42,19 @@ const MerchantInfoContainer = () => {
       fontSize: '24px',
       fontWeight: 'bold',
       color: uiConfig?.headingColor || '#fff',
+      margin: 0,
+    },
+    backBtn: {
+      background: 'none',
+      border: 'none',
+      color: uiConfig?.actionColor || '#E50914',
+      fontSize: '15px',
+      fontWeight: '600',
+      cursor: 'pointer',
+      padding: '0',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
     },
     card: {
       backgroundColor: '#2A2A2A',
@@ -108,10 +123,22 @@ const MerchantInfoContainer = () => {
     }
   };
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate('/account');
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}>
+        <button style={styles.backBtn} onClick={handleBack} aria-label="Go back">
+          ← Back
+        </button>
         <h1 style={styles.title}>{uiConfig?.merchantName || 'Merchant Info'}</h1>
+        <div style={{ width: '56px' }} />
       </div>
 
       <div style={styles.card}>

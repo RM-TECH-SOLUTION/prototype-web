@@ -368,33 +368,4 @@
   color: #fff;
 }
 
-/* Responsive */
-@media (min-width: 768px) {
-  .product-detail-content {
-    max-width: 900px;
-    flex-direction: row;
-    gap: 30px;
-  }
-
-  .product-image-section {
-    flex: 1;
-    max-width: 400px;
-  }
-
-  .product-details-section {
-    flex: 1;
-  }
-
-  .product-main-image {
-    max-height: 400px;
-  }
-
-  .product-title {
-    font-size: 22px;
-  }
-
-  .product-price {
-    font-size: 28px;
-  }
-}
 

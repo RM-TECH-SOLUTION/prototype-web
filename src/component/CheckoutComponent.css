@@ -136,8 +136,7 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 650px;
+  width: min(100vw, var(--app-mobile-width));
   background: #111;
   padding: 12px 16px;
   display: flex;
@@ -176,7 +175,7 @@
 .payment-sheet {
   background: #1a1a1a;
   width: 100%;
-  max-width: 650px;
+  max-width: var(--app-mobile-width);
   border-radius: 20px 20px 0 0;
   padding: 20px 16px 32px;
   max-height: 90vh;

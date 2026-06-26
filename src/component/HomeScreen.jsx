@@ -56,7 +56,13 @@ const HomeScreen = ({
   const sliderRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
-  const width = window.innerWidth;
+
+  const getSliderWidth = () => {
+    if (sliderRef.current) {
+      return sliderRef.current.clientWidth;
+    }
+    return window.innerWidth;
+  };
 
   /* AUTO HERO SLIDER */
   useEffect(() => {
@@ -67,6 +73,7 @@ const HomeScreen = ({
       if (nextIndex >= homeBanner.length) nextIndex = 0;
 
       if (sliderRef.current) {
+        const width = getSliderWidth();
         sliderRef.current.scrollTo({
           left: nextIndex * width,
           behavior: "smooth",
@@ -77,9 +84,10 @@ const HomeScreen = ({
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentIndex, homeBanner?.length, width]);
+  }, [currentIndex, homeBanner?.length]);
 
   const handleScroll = (e) => {
+    const width = getSliderWidth();
     const index = Math.round(e.target.scrollLeft / width);
     setCurrentIndex(index);
   };
