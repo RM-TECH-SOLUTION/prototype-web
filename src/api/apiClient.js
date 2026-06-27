@@ -1,103 +1,161 @@
-// API Client - Same as React Native version
+import axios from 'axios';
 import { config } from '../config';
 
-const BASE_URL = config.baseUrl.endsWith("/") ? config.baseUrl : config.baseUrl + "/";
-const merchantId = Number(config.merchantId || 0);
+const BASE_URL = String(config.baseUrl || '').replace(/\/+$/, '');
 
-const URLS = {
-  register: BASE_URL + "register.php",
-  login: BASE_URL + "login.php",
-  updateOrAddUser: BASE_URL + "registration-update.php",
-  loginVerification: BASE_URL + "loginVerification.php",
-  getCatalog: BASE_URL + "catalog.php",
-  getItem: BASE_URL + "item.php",
-  getCmsByMerchant: BASE_URL + "getCmsByMerchant.php",
-  getAddCart: BASE_URL + "add_to_cart.php",
-  getCart: BASE_URL + "get_cart.php",
-  updateCartQty: BASE_URL + "update_cart_qty.php",
-  deleteCartItem: BASE_URL + "delete_cart_item.php",
-  getCatalogueModels: BASE_URL + "getCatalogueModels.php",
-  getCatalogueItems: BASE_URL + "getCatalogueItems.php",
-  clearCart: BASE_URL + "clear_cart.php",
-  razorpay: BASE_URL + "razorpay.php",
-  createOrder: BASE_URL + "create_order.php",
-  getMerchant: BASE_URL + "getMerchant.php",
-  saveUserAddress: BASE_URL + "save_user_address.php",
-  getProfile: BASE_URL + "get_profile.php",
-  getLoyaltySettings: BASE_URL + "get_loyalty_settings.php",
-  apply_coupon: BASE_URL + "apply_coupon.php",
-  order_history: BASE_URL + "order_history.php",
-  getMainCatalogues: BASE_URL + "getMainCatalogues"
+export let DEFAULT_MERCHANT_ID = Number(config.merchantId || 0);
+
+export const setMerchantId = (id) => {
+  DEFAULT_MERCHANT_ID = Number(id || 0);
 };
 
-const apiClient = {
-  Urls: URLS,
+const API_URLS = {
+  register: '/register.php',
+  login: '/login.php',
+  updateOrAddUser: '/registration-update.php',
+  loginVerification: '/loginVerification.php',
+  getCatalog: '/catalog.php',
+  getItem: '/item.php',
+  getCmsByMerchant: '/getCmsByMerchant.php',
+  getAddCart: '/add_to_cart.php',
+  getCart: '/get_cart.php',
+  updateCartQty: '/update_cart_qty.php',
+  deleteCartItem: '/delete_cart_item.php',
+  getCatalogueModels: '/getCatalogueModels.php',
+  getCatalogueItems: '/getCatalogueItems.php',
+  clearCart: '/clear_cart.php',
+  razorpay: '/razorpay.php',
+  createOrder: '/create_order.php',
+  getMerchant: '/getMerchant.php',
+  saveUserAddress: '/save_user_address.php',
+  getProfile: '/get_profile.php',
+  getLoyaltySettings: '/get_loyalty_settings.php',
+  apply_coupon: '/apply_coupon.php',
+  order_history: '/order_history.php',
+  getMainCatalogues: '/getMainCatalogues',
+};
 
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-
-  async make(url, method = "GET", params = {}) {
-    // Get user from session store (dynamically imported to avoid circular dependency)
+const getStoredUserId = async () => {
+  try {
     const { default: useSessionStore } = await import('../store/useSessionStore');
     const { user } = useSessionStore.getState();
-    const userId = user?.id || null;
+    return user?.id || null;
+  } catch {
+    return null;
+  }
+};
 
-    // Always attach merchant_id & user_id
-    const finalParams = {
-      merchant_id: merchantId,
-      user_id: userId,
-      ...params,
-    };
+const apiClient = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+});
 
-    const hasParams = Object.keys(finalParams).length > 0;
+apiClient.Urls = API_URLS;
 
-    const queryString =
-      method === "GET" && hasParams
-        ? "?" + new URLSearchParams(finalParams).toString()
-        : "";
+apiClient.withContext = async (params = {}) => {
+  const {
+    forceMerchantId,
+    merchant_id: _merchantIdLegacy,
+    merchantId: _merchantIdCamel,
+    user_id,
+    userId,
+    ...rest
+  } = params;
 
-    const reqUrl = url + queryString;
+  const storedUserId = await getStoredUserId();
+  const merchantValue = forceMerchantId ?? DEFAULT_MERCHANT_ID;
 
-    console.log(`🚀 [${method}] Request → ${reqUrl}`);
+  return {
+    ...rest,
+    merchantId: merchantValue,
+    merchant_id: merchantValue,
+    user_id: user_id ?? userId ?? storedUserId,
+  };
+};
 
-    try {
-      const response = await fetch(reqUrl, {
-        method,
-        headers: this.headers,
-        mode: 'cors',
-        ...(method !== "GET"
-          ? { body: JSON.stringify(finalParams) }
-          : {}),
-      });
+apiClient.get = async (url, params = {}) => {
+  try {
+    const contextParams = await apiClient.withContext(params);
+    const response = await apiClient.request({
+      method: 'get',
+      url,
+      params: contextParams,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`API GET Error [${error?.response?.status}] ${url}:`, {
+      status: error?.response?.status,
+      statusText: error?.response?.statusText,
+      data: error?.response?.data,
+      message: error?.message,
+    });
+    throw error;
+  }
+};
 
-      const text = await response.text();
+apiClient.post = async (url, body = {}) => {
+  try {
+    const contextBody = await apiClient.withContext(body);
+    const response = await apiClient.request({
+      method: 'post',
+      url,
+      data: contextBody,
+      headers: apiClient.defaults.headers,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`API POST Error [${error?.response?.status}] ${url}:`, {
+      status: error?.response?.status,
+      statusText: error?.response?.statusText,
+      data: error?.response?.data,
+      message: error?.message,
+    });
+    throw error;
+  }
+};
 
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (err) {
-        console.error("❌ Server returned non-JSON:", text);
-        throw new Error("Invalid JSON response");
-      }
-
-      console.log("📡 Response →", data);
-      return data;
-
-    } catch (error) {
-      console.error(`🔥 API Error (${url}):`, error);
-      throw error;
+export const getMerchantNameFromUrl = () => {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const merchantParam = urlParams.get('merchant');
+    if (merchantParam) {
+      return merchantParam.toLowerCase().trim();
     }
-  },
 
-  get(url, params = {}) {
-    return this.make(url, "GET", params);
-  },
+    const hostname = window.location.hostname;
+    const parts = hostname.split('.');
+    if (
+      parts.length >= 4 &&
+      parts[parts.length - 3] === 'storehub' &&
+      parts[parts.length - 2] === 'co' &&
+      parts[parts.length - 1] === 'in'
+    ) {
+      return parts[0];
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
-  post(url, params = {}) {
-    return this.make(url, "POST", params);
-  },
+export const findMerchantByName = async (merchantName) => {
+  try {
+    const response = await axios.get(`${apiClient.defaults.baseURL}/findMerchant.php`, {
+      params: { name: merchantName },
+    });
+    return response.data?.data || response.data;
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.message ||
+      error?.response?.data?.error ||
+      error?.message ||
+      'Failed to find merchant';
+    console.error(`Merchant lookup failed for "${merchantName}":`, errorMessage);
+    return { error: true, message: errorMessage };
+  }
 };
 
 export default apiClient;

@@ -169,23 +169,19 @@ const CheckoutComponent = ({
 
     try {
       // Create order on server (same as native app)
-      const order = await fetch(apiClient.Urls.createOrder, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: Number(total),
-          merchant_id: merchantData?.merchantId,
-          keyId: merchantData?.keyId,
-          keySecret: merchantData?.keySecret,
-          user_id: user?.id,
-          phone: user?.phone,
-          items: cartItems,
-          orderType: type,
-          couponDiscount: discount || 0,
-          pointsDiscount: pointsDiscount || 0,
-          address: JSON.stringify(profileToUse?.address || {}),
-        }),
-      }).then((res) => res.json());
+      const order = await apiClient.post(apiClient.Urls.createOrder, {
+        amount: Number(total),
+        merchant_id: merchantData?.merchantId,
+        keyId: merchantData?.keyId,
+        keySecret: merchantData?.keySecret,
+        user_id: user?.id,
+        phone: user?.phone,
+        items: cartItems,
+        orderType: type,
+        couponDiscount: discount || 0,
+        pointsDiscount: pointsDiscount || 0,
+        address: JSON.stringify(profileToUse?.address || {}),
+      });
 
       if (!order?.success) {
         alert(order?.message || "Order failed");
@@ -229,22 +225,18 @@ const CheckoutComponent = ({
         description: "Order Payment",
         order_id: order.id,
         handler: async function (response) {
-          await fetch(apiClient.Urls.createOrder, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              razorpay_order_id: order.id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              user_id: user?.id,
-              merchant_id: merchantData?.merchantId,
-              items: cartItems,
-              address: JSON.stringify(profileToUse?.address || {}),
-              amount: total,
-              couponDiscount: discount,
-              pointsDiscount: pointsDiscount,
-              orderType: "online",
-              status: "success",
-            }),
+          await apiClient.post(apiClient.Urls.createOrder, {
+            razorpay_order_id: order.id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            user_id: user?.id,
+            merchant_id: merchantData?.merchantId,
+            items: cartItems,
+            address: JSON.stringify(profileToUse?.address || {}),
+            amount: total,
+            couponDiscount: discount,
+            pointsDiscount: pointsDiscount,
+            orderType: "online",
+            status: "success",
           });
 
           if (clearCart) {
@@ -274,22 +266,18 @@ const CheckoutComponent = ({
         theme: { color: "#E50914" },
         modal: {
           ondismiss: async function () {
-            await fetch(apiClient.Urls.createOrder, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                order_id: order.id,
-                merchant_id: merchantData?.merchantId,
-                user_id: user?.id,
-                phone: user?.phone,
-                items: cartItems,
-                address: JSON.stringify(profileToUse?.address || {}),
-                amount: Number(total),
-                orderType: "online",
-                couponDiscount: discount || 0,
-                pointsDiscount: pointsDiscount || 0,
-                status: "failure",
-              }),
+            await apiClient.post(apiClient.Urls.createOrder, {
+              order_id: order.id,
+              merchant_id: merchantData?.merchantId,
+              user_id: user?.id,
+              phone: user?.phone,
+              items: cartItems,
+              address: JSON.stringify(profileToUse?.address || {}),
+              amount: Number(total),
+              orderType: "online",
+              couponDiscount: discount || 0,
+              pointsDiscount: pointsDiscount || 0,
+              status: "failure",
             });
           },
         },
@@ -298,22 +286,18 @@ const CheckoutComponent = ({
       const rzp = new window.Razorpay(options);
 
       rzp.on("payment.failed", async function () {
-        await fetch(apiClient.Urls.createOrder, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            order_id: order.id,
-            merchant_id: merchantData?.merchantId,
-            user_id: user?.id,
-            phone: user?.phone,
-            items: cartItems,
-            address: JSON.stringify(profileToUse?.address || {}),
-            amount: Number(total),
-            orderType: "online",
-            couponDiscount: discount || 0,
-            pointsDiscount: pointsDiscount || 0,
-            status: "failure",
-          }),
+        await apiClient.post(apiClient.Urls.createOrder, {
+          order_id: order.id,
+          merchant_id: merchantData?.merchantId,
+          user_id: user?.id,
+          phone: user?.phone,
+          items: cartItems,
+          address: JSON.stringify(profileToUse?.address || {}),
+          amount: Number(total),
+          orderType: "online",
+          couponDiscount: discount || 0,
+          pointsDiscount: pointsDiscount || 0,
+          status: "failure",
         });
 
         alert("Payment cancelled");

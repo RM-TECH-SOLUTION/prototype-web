@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import HomeContainer from './container/HomeContainer';
 import LoginContainer from './container/LoginContainer';
@@ -24,40 +24,38 @@ function App() {
   }, [getCmsData]);
   
   return (
-    <Router>
-      <Routes>
-        {/* Splash & Walkthrough */}
-        <Route path="/splash" element={<SplashContainer />} />
-        <Route path="/walkthrough" element={<WalkthroughContainer />} />
+    <Routes>
+      {/* Splash & Walkthrough */}
+      <Route path="/splash" element={<SplashContainer />} />
+      <Route path="/walkthrough" element={<WalkthroughContainer />} />
 
-        {/* Auth Routes */}
-        <Route path="/login" element={<LoginContainer />} />
-        <Route path="/register" element={<RegisterContainer />} />
-        
-        {/* Main App with Tabs */}
-        <Route path="/*" element={<HomeContainer />} />
-        
-        {/* Checkout - Outside of tabs */}
-        <Route path="/checkout" element={<CheckoutContainer />} />
-        
-        {/* Category - Direct route */}
-        <Route path="/category" element={<CategoryContainer />} />
-        
-        {/* Product Detail Page */}
-        <Route path="/product/:productId" element={<ProductDetailComponent />} />
-        
-        {/* Account/Profile - Direct route */}
-        <Route path="/account" element={<Account />} />
-        <Route path="/account/saved-address" element={<SavedAddressComponent />} />
-        
-        {/* Order History */}
-        <Route path="/order-history" element={<OrderHistoryContainer />} />
-        
-        {/* Merchant Info (Help) */}
-        <Route path="/help" element={<MerchantInfoContainer />} />
-        <Route path="/merchant-info" element={<MerchantInfoContainer />} />
-      </Routes>
-    </Router>
+      {/* Auth Routes */}
+      <Route path="/login" element={<LoginContainer />} />
+      <Route path="/register" element={<RegisterContainer />} />
+
+      {/* Main App with Tabs */}
+      <Route path="/*" element={<HomeContainer />} />
+
+      {/* Checkout - Outside of tabs */}
+      <Route path="/checkout" element={<CheckoutContainer />} />
+
+      {/* Category - Direct route */}
+      <Route path="/category" element={<CategoryContainer />} />
+
+      {/* Product Detail Page */}
+      <Route path="/product/:productId" element={<ProductDetailComponent />} />
+
+      {/* Account/Profile - Direct route */}
+      <Route path="/account" element={<Account />} />
+      <Route path="/account/saved-address" element={<SavedAddressComponent />} />
+
+      {/* Order History */}
+      <Route path="/order-history" element={<OrderHistoryContainer />} />
+
+      {/* Merchant Info (Help) */}
+      <Route path="/help" element={<MerchantInfoContainer />} />
+      <Route path="/merchant-info" element={<MerchantInfoContainer />} />
+    </Routes>
   );
 }
 
